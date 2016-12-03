@@ -1,0 +1,11 @@
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/ExpressionTest.dll.mdb
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/ExpressionTest.dll
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/obj/Debug/ExpressionTest.dll
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/obj/Debug/ExpressionTest.dll.mdb
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/nunit.framework.dll
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/shunting_yard.exe
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/shunting_yard.exe.mdb
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/shunting_yard.pdb
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/shunting_yard.dll
+/home/tom/Quelltexte/MathExpressionParser/ExpressionTest/bin/Debug/shunting_yard.dll.mdb

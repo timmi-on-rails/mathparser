@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shunting_yard", "shunting_yard\shunting_yard.csproj", "{0BFAE215-D589-446E-8FED-89A00EAB498C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTest", "ExpressionTest\ExpressionTest.csproj", "{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{19445B87-ABD9-426D-B64E-69C5BA36CDFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BFAE215-D589-446E-8FED-89A00EAB498C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BFAE215-D589-446E-8FED-89A00EAB498C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BFAE215-D589-446E-8FED-89A00EAB498C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BFAE215-D589-446E-8FED-89A00EAB498C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19445B87-ABD9-426D-B64E-69C5BA36CDFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19445B87-ABD9-426D-B64E-69C5BA36CDFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19445B87-ABD9-426D-B64E-69C5BA36CDFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19445B87-ABD9-426D-B64E-69C5BA36CDFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

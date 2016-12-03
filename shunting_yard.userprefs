@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="Demo/Demo.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="shunting_yard/src/Program.cs">
+    <Files>
+      <File FileName="ExpressionTest/Test.cs" Line="9" Column="2" />
+      <File FileName="ExpressionTest/TestExtensions.cs" Line="10" Column="25" />
+      <File FileName="shunting_yard/src/Expressions.cs" Line="94" Column="3" />
+      <File FileName="shunting_yard/src/Parser.cs" Line="90" Column="3" />
+      <File FileName="shunting_yard/src/Operators.cs" Line="27" Column="33" />
+      <File FileName="shunting_yard/src/Program.cs" Line="16" Column="4" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

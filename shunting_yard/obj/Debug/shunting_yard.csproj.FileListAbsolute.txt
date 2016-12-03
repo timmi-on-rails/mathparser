@@ -1,0 +1,6 @@
+c:\users\gsr\documents\visual studio 2013\Projects\shunting_yard\shunting_yard\bin\Debug\shunting_yard.exe.config
+c:\users\gsr\documents\visual studio 2013\Projects\shunting_yard\shunting_yard\obj\Debug\shunting_yard.csprojResolveAssemblyReference.cache
+c:\users\gsr\documents\visual studio 2013\Projects\shunting_yard\shunting_yard\bin\Debug\shunting_yard.exe
+c:\users\gsr\documents\visual studio 2013\Projects\shunting_yard\shunting_yard\bin\Debug\shunting_yard.pdb
+c:\users\gsr\documents\visual studio 2013\Projects\shunting_yard\shunting_yard\obj\Debug\shunting_yard.exe
+c:\users\gsr\documents\visual studio 2013\Projects\shunting_yard\shunting_yard\obj\Debug\shunting_yard.pdb
