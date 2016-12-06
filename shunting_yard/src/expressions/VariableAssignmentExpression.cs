@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace shunting_yard
+﻿namespace shunting_yard
 {
 	class VariableAssignmentExpression : IExpression
 	{
@@ -17,21 +15,10 @@ namespace shunting_yard
 			_variablesManager = variablesManager;
 		}
 
-		public bool CanEvaluate()
+		public void Accept(IExpressionVisitor visitor)
 		{
-			return Expression.CanEvaluate();
-		}
-
-		public double Evaluate()
-		{
-			double value = Expression.Evaluate();
-			_variablesManager.Set(VariableName, value);
-			return value;
-		}
-
-		public override string ToString()
-		{
-			return String.Format("({0} = {1})", VariableName, Expression.ToString());
+			Expression.Accept(visitor);
+			visitor.Visit(this);
 		}
 	}
 }

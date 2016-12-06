@@ -1,17 +1,30 @@
-﻿<Properties StartupItem="Demo/Demo.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="shunting_yard/src/Program.cs">
+﻿<Properties StartupConfiguration="{19445B87-ABD9-426D-B64E-69C5BA36CDFB}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Demo/Program.cs">
     <Files>
-      <File FileName="ExpressionTest/Test.cs" Line="9" Column="2" />
-      <File FileName="ExpressionTest/TestExtensions.cs" Line="10" Column="25" />
-      <File FileName="shunting_yard/src/Expressions.cs" Line="94" Column="3" />
-      <File FileName="shunting_yard/src/Parser.cs" Line="90" Column="3" />
-      <File FileName="shunting_yard/src/Operators.cs" Line="27" Column="33" />
-      <File FileName="shunting_yard/src/Program.cs" Line="16" Column="4" />
+      <File FileName="shunting_yard/src/parser/Parser2.cs" Line="126" Column="36" />
+      <File FileName="shunting_yard/src/parser/MathParser.cs" Line="226" Column="36" />
+      <File FileName="shunting_yard/src/parser/Precedence.cs" Line="9" Column="25" />
+      <File FileName="shunting_yard/src/parser/CallParselet.cs" Line="23" Column="14" />
+      <File FileName="ExpressionTest/Test.cs" Line="73" Column="4" />
+      <File FileName="shunting_yard/src/visitors/ExpressionTree.cs" Line="17" Column="88" />
+      <File FileName="shunting_yard/src/visitors/EvaluationVisitor.cs" Line="35" Column="1" />
+      <File FileName="shunting_yard/src/parser/FunctionsManager.cs" Line="1" Column="1" />
+      <File FileName="shunting_yard/src/parser/ParserState.cs" Line="1" Column="1" />
+      <File FileName="shunting_yard/src/parser/PostfixOperatorParselet.cs" Line="23" Column="9" />
+      <File FileName="shunting_yard/src/parser/PrefixOperatorParselet.cs" Line="13" Column="29" />
+      <File FileName="shunting_yard/src/expressions/FunctionExpression.cs" Line="14" Column="10" />
+      <File FileName="shunting_yard/src/parser/BinaryOperatorParselet.cs" Line="30" Column="99" />
+      <File FileName="Demo/Program.cs" Line="12" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/tom/Quelltexte/MathExpressionParser/Demo/Program.cs" line="13" column="43" />
+      <Breakpoint file="/home/tom/Quelltexte/MathExpressionParser/shunting_yard/src/visitors/EvaluationVisitor.cs" line="93" column="33" />
+      <Breakpoint file="/home/tom/Quelltexte/MathExpressionParser/shunting_yard/src/parser/CallParselet.cs" line="23" column="14" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Demo PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

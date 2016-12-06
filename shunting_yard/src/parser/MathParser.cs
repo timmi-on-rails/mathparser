@@ -5,18 +5,19 @@ using System.Globalization;
 
 namespace shunting_yard
 {
-	public class MathParser
+	public partial class MathParser
 	{
 		internal VariablesManager VariablesManager { get; }
 
-		internal FunctionsManager Evaluator { get; }
+		internal FunctionsManager FunctionsManager { get; }
 
 		public MathParser()
 		{
 			VariablesManager = new VariablesManager();
+			FunctionsManager = new FunctionsManager();
 		}
 
-		public bool TryParse(string expression, out IExpression result)
+		/*public bool TryParse(string expression, out IExpression result)
 		{			
 			try
 			{
@@ -28,15 +29,15 @@ namespace shunting_yard
 				result = new ValueExpression(0);
 				return false;
 			}
-		}
+		}*/
 
-		public IExpression Parse(string expression)
+		public ExpressionTree ParseShuntingYard(string expression)
 		{
 			Stack<IExpression> output = new Stack<IExpression>();
 			Stack<Operator> operators = new Stack<Operator>();
 
 			ParserState state = ParserState.WantOperand;
-      
+
 			foreach (Token nextToken in Tokenizer.GetTokens(expression))
 			{
 				if (state == ParserState.WantOperand)
@@ -77,7 +78,7 @@ namespace shunting_yard
 								VariableExpression funcName = output.Pop() as VariableExpression;
 								if (funcName != null)
 								{
-									output.Push(new FunctionExpression(funcName.VariableName, new IExpression[] { }, Evaluator));
+									output.Push(new FunctionExpression(funcName.VariableName, new IExpression[] { }));
 									operators.Pop();
 									state = ParserState.HaveOperand;
 									continue;
@@ -116,7 +117,7 @@ namespace shunting_yard
 					}
 
 					if (PostfixOrInfixOperators.Get.ContainsKey(nextToken.TokenType)
-					    && PostfixOrInfixOperators.Get[nextToken.TokenType].OperatorType == OperatorType.Postfix)
+						&& PostfixOrInfixOperators.Get[nextToken.TokenType].OperatorType == OperatorType.Postfix)
 					{
 						operators.Push(PostfixOrInfixOperators.Get[nextToken.TokenType]);
 						continue;
@@ -160,7 +161,7 @@ namespace shunting_yard
 									if (funcName != null)
 									{
 										arguments.Reverse();
-										output.Push(new FunctionExpression(funcName.VariableName, arguments.ToArray(), Evaluator));
+										output.Push(new FunctionExpression(funcName.VariableName, arguments.ToArray()));
 									}
 								}
 								break;
@@ -196,13 +197,13 @@ namespace shunting_yard
 					}
 
 					if (PostfixOrInfixOperators.Get.ContainsKey(nextToken.TokenType)
-					    && PostfixOrInfixOperators.Get[nextToken.TokenType].OperatorType == OperatorType.Infix)
+						&& PostfixOrInfixOperators.Get[nextToken.TokenType].OperatorType == OperatorType.Infix)
 					{
 						Operator op = PostfixOrInfixOperators.Get[nextToken.TokenType];
 
 						if (operators.Count != 0
-						    && !(operators.Peek().Priority < op.Priority && op.Associativity == Associativity.Left)
-						    && !(operators.Peek().Priority <= op.Priority && op.Associativity == Associativity.Right))
+							&& !(operators.Peek().Priority < op.Priority && op.Associativity == Associativity.Left)
+							&& !(operators.Peek().Priority <= op.Priority && op.Associativity == Associativity.Right))
 						{
 							operators.Pop().Apply(this, output);
 						}
@@ -222,7 +223,7 @@ namespace shunting_yard
 				throw new Exception("too many");
 			}
 
-			return output.Pop();
+			return new ExpressionTree(this, output.Pop());
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace shunting_yard
 					{
 						IExpression exp2 = output.Pop();
 						IExpression exp1 = output.Pop();
-						output.Push(new SubExpression(exp1, exp2));
+						output.Push(new BinaryExpression(BinaryExpressionType.Sub, exp1, exp2));
 					})
 			},
 			{ TokenType.Plus, new Operator(TokenType.Plus, OperatorType.Infix, Associativity.Left, 1,
@@ -25,7 +25,7 @@ namespace shunting_yard
 					{
 						IExpression exp2 = output.Pop();
 						IExpression exp1 = output.Pop();
-						output.Push(new AddExpression(exp1, exp2));
+						output.Push(new BinaryExpression(BinaryExpressionType.Add, exp1, exp2));
 					})
 			},
 			{ TokenType.Star, new Operator(TokenType.Star, OperatorType.Infix, Associativity.Left, 2,
@@ -33,7 +33,7 @@ namespace shunting_yard
 					{
 						IExpression exp2 = output.Pop();
 						IExpression exp1 = output.Pop();
-						output.Push(new MulExpression(exp1, exp2));
+						output.Push(new BinaryExpression(BinaryExpressionType.Mul, exp1, exp2));
 					})
 			},
 			{ TokenType.Slash, new Operator(TokenType.Slash, OperatorType.Infix, Associativity.Left, 2,
@@ -41,7 +41,7 @@ namespace shunting_yard
 					{
 						IExpression exp2 = output.Pop();
 						IExpression exp1 = output.Pop();
-						output.Push(new DivExpression(exp1, exp2));
+						output.Push(new BinaryExpression(BinaryExpressionType.Div, exp1, exp2));
 					})
 			},
 			{ TokenType.Pow, new Operator(TokenType.Pow, OperatorType.Infix, Associativity.Right, 3,
@@ -49,7 +49,7 @@ namespace shunting_yard
 					{
 						IExpression exp2 = output.Pop();
 						IExpression exp1 = output.Pop();
-						output.Push(new PowerExpression(exp1, exp2));
+						output.Push(new BinaryExpression(BinaryExpressionType.Pow, exp1, exp2));
 					})
 			},
 			{ TokenType.Equal, new Operator(TokenType.Equal, OperatorType.Infix, Associativity.Right, 0,

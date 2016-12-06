@@ -13,7 +13,7 @@ namespace shunting_yard
 		private static Dictionary<TokenType, Operator> _prefixOperators = new Dictionary<TokenType, Operator>
 		{
 			{ TokenType.Minus, new Operator(TokenType.Minus, OperatorType.Prefix, Associativity.Right, 4,
-					(mathParser, output) => output.Push(new NegationExpression(output.Pop())))
+					(mathParser, output) => output.Push(new PrefixExpression(PrefixExpressionType.Negation, output.Pop())))
 			}
 		};
 	}

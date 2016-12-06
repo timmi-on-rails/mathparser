@@ -7,6 +7,8 @@ namespace Demo
 	{
 		public static void Main(string[] args)
 		{
+
+
 			string line;
 			MathParser mathParser = new MathParser();
 
@@ -14,7 +16,7 @@ namespace Demo
 			{
 				try
 				{
-					IExpression e = mathParser.Parse(line);
+					ExpressionTree e = mathParser.Parse(line);
 					Console.WriteLine(e.ToString() + " -> " + e.Evaluate());
 				}
 				catch (FormatException fe)

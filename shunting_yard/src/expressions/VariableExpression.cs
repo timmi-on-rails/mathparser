@@ -14,19 +14,9 @@ namespace shunting_yard
 			_variablesManager = variableManager;
 		}
 
-		public bool CanEvaluate()
+		public void Accept(IExpressionVisitor visitor)
 		{
-			return _variablesManager.IsSet(VariableName);
-		}
-
-		public double Evaluate()
-		{
-			return _variablesManager.Get(VariableName);
-		}
-
-		public override string ToString()
-		{
-			return VariableName;
+			visitor.Visit(this);
 		}
 	}
 }

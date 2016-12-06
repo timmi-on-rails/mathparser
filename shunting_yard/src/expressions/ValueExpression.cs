@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace shunting_yard
+﻿namespace shunting_yard
 {
-	public class ValueExpression : IExpression
+	class ValueExpression : IExpression
 	{
 		public double Value { get; }
 
@@ -11,19 +9,9 @@ namespace shunting_yard
 			Value = value;
 		}
 
-		public bool CanEvaluate()
+		public void Accept(IExpressionVisitor visitor)
 		{
-			return true;
-		}
-
-		public double Evaluate()
-		{
-			return Value;
-		}
-
-		public override string ToString()
-		{
-			return Value.ToString();
+			visitor.Visit(this);
 		}
 	}
 }

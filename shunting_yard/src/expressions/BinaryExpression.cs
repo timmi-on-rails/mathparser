@@ -1,34 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace shunting_yard
+﻿namespace shunting_yard
 {
-	abstract class BinaryExpression : IExpression
+	class BinaryExpression : IExpression
 	{
-		public IExpression Operand1 { get; }
+		public IExpression LeftOperand { get; }
 
-		public IExpression Operand2 { get; }
+		public IExpression RightOperand { get; }
 
-		public IEnumerable<IExpression> Children
+		public BinaryExpressionType BinaryExpressionType { get; }
+
+		public BinaryExpression(BinaryExpressionType binaryExpressionType, IExpression leftOperand, IExpression rightOperand)
+		{		
+			BinaryExpressionType = binaryExpressionType;	
+			LeftOperand = leftOperand;
+			RightOperand = rightOperand;
+		}
+
+		public void Accept(IExpressionVisitor visitor)
 		{
-			get
-			{
-				yield return Operand1;
-				yield return Operand2;
-			}
+			LeftOperand.Accept(visitor);
+			RightOperand.Accept(visitor);
+			visitor.Visit(this);
 		}
-
-		public BinaryExpression(IExpression operand1, IExpression operand2)
-		{			
-			this.Operand1 = operand1;
-			this.Operand2 = operand2;
-		}
-
-		public virtual bool CanEvaluate()
-		{
-			return Operand1.CanEvaluate() && Operand2.CanEvaluate();
-		}
-
-		public abstract double Evaluate();
 	}
 }
