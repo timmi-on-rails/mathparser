@@ -1,5 +1,4 @@
-﻿using System;
-using shunting_yard;
+﻿using NUnit.Framework;
 
 namespace ExpressionTest
 {
@@ -7,9 +6,20 @@ namespace ExpressionTest
 	{
 		public static double Evaluate(this string mathExpression)
 		{
-			MathParser mathParser = new MathParser();
+			MathParser.MathParser mathParser = new MathParser.MathParser();
 			return mathParser.Parse(mathExpression).Evaluate();
+		}
+
+		public static void ShouldParseAs(this string mathExpression, string expected)
+		{
+			MathParser.MathParser mathParser = new MathParser.MathParser();
+			Assert.AreEqual(expected, mathParser.Parse(mathExpression).ToDebug());
+		}
+
+		public static void ShouldEvaluateTo(this string mathExpression, double expected)
+		{
+			MathParser.MathParser mathParser = new MathParser.MathParser();
+			Assert.AreEqual(expected, mathParser.Parse(mathExpression).Evaluate());
 		}
 	}
 }
-

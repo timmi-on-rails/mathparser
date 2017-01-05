@@ -1,4 +1,4 @@
-﻿namespace shunting_yard
+﻿namespace MathParser
 {
 	enum TokenType
 	{
@@ -10,8 +10,15 @@
 		Star,
 		Slash,
 		Pow,
-		Ident,
+		Identifier,
+		Numeric,
+		QuestionMark,
+		Colon,
 		Eof,
-		Comma
+		Smaller,
+		Bigger,
+		Comma,
+		Unknown,
+		LessOrEqual
 	}
 }

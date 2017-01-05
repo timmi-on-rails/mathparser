@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace shunting_yard
+namespace MathParser
 {
 	class FunctionsManager
 	{

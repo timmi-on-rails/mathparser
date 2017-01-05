@@ -4,7 +4,3 @@
 /home/tom/Quelltexte/MathExpressionParser/Demo/obj/Debug/Demo.exe
 /home/tom/Quelltexte/MathExpressionParser/Demo/obj/Debug/Demo.exe.mdb
 /home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/shunting_yard.dll
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/shunting_yard.exe.mdb
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/shunting_yard.dll.mdb
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/shunting_yard.pdb
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/NCalc.dll

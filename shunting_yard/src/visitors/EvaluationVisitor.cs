@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
-namespace shunting_yard
+namespace MathParser
 {
-	// TODO abstract base visitor class
-	// so that not every concrete visitor needs to visit all node types
-	// maybe some indirection in base class to have a visitor called on every IExpression visit
-	class EvaluationVisitor : IExpressionVisitor
+	class EvaluationVisitor : AbstractExpressionVisitor
 	{
-		private readonly Stack<double> _stack = new Stack<double>();
+		protected readonly Stack<double> _stack = new Stack<double>();
+		private readonly Stack<bool> _stackBools = new Stack<bool>();
 
 		FunctionsManager _functionManager;
+		VariablesManager _variablesManager;
 
-		public EvaluationVisitor(FunctionsManager fM)
+		public EvaluationVisitor(FunctionsManager fM, VariablesManager vm)
 		{
 			_functionManager = fM;
+			_variablesManager = vm;
 		}
 
 		public double GetResult()
@@ -29,7 +30,7 @@ namespace shunting_yard
 			}
 		}
 
-		public void Visit(BinaryExpression binaryExpression)
+		public override void Visit(BinaryExpression binaryExpression)
 		{
 			double right = _stack.Pop();
 			double left = _stack.Pop();
@@ -59,32 +60,28 @@ namespace shunting_yard
 			_stack.Push(result);
 		}
 
-		public void Visit(PostfixExpression postfixExpression)
+		public override void Visit(PrefixExpression prefixExpression)
 		{
-		}
-
-		public void Visit(PrefixExpression unaryExpression)
-		{
-			switch (unaryExpression.PrefixExpressionType)
+			switch (prefixExpression.PrefixExpressionType)
 			{
 				case PrefixExpressionType.Negation:
 					_stack.Push(-_stack.Pop());
 					break;
 				default:
-					throw new ArgumentException("unknown unary expr " + unaryExpression.PrefixExpressionType);
+					throw new ArgumentException("unknown unary expr " + prefixExpression.PrefixExpressionType);
 			}
 		}
 
-		public void Visit(ValueExpression valueExpression)
+		public override void Visit(ValueExpression valueExpression)
 		{
 			_stack.Push(valueExpression.Value);
 		}
 
-		public void Visit(FunctionExpression functionExpression)
+		public override void Visit(CallExpression functionExpression)
 		{
 			List<double> args = new List<double>();
 
-			for (int i = 0; i < functionExpression.Arguments.Length; i++)
+			for (int i = 0; i < functionExpression.Arguments.Count(); i++)
 			{
 				args.Add(_stack.Pop());
 			}
@@ -93,12 +90,40 @@ namespace shunting_yard
 			_stack.Push(_functionManager.Call(functionExpression.FunctionName, args.ToArray()));
 		}
 
-		public void Visit(VariableExpression variableExpression)
+		public override void Visit(TernaryExpression ternaryExpression)
 		{
+			double falseVale = _stack.Pop();
+			double trueVal = _stack.Pop();
+			bool compRes = _stackBools.Pop();
+			_stack.Push(compRes ? trueVal : falseVale);
 		}
 
-		public void Visit(VariableAssignmentExpression variableAssignmentExpression)
+		public override void Visit(ComparisonExpression comparisonExpression)
 		{
+			double right = _stack.Pop();
+			double left = _stack.Pop();
+			bool result;
+
+			switch (comparisonExpression.ComparisonExpressionType)
+			{
+				case ComparisonExpressionType.Less:
+					result = left < right;
+					break;
+				default:
+					throw new ArgumentException("unknown comparison expr " + comparisonExpression.ComparisonExpressionType);
+			}
+
+			_stackBools.Push(result);
+		}
+
+		public override void Visit(VariableExpression variableExpression)
+		{
+			if (!_variablesManager.IsSet(variableExpression.VariableName))
+			{
+				throw new UnknownVariableException();
+			}
+
+			_stack.Push(_variablesManager.Get(variableExpression.VariableName));
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace shunting_yard
+﻿namespace MathParser
 {
 	class ValueExpression : IExpression
 	{
@@ -11,7 +11,7 @@
 
 		public void Accept(IExpressionVisitor visitor)
 		{
-			visitor.Visit(this);
+			visitor.Traverse(() => visitor.Visit(this));
 		}
 	}
 }

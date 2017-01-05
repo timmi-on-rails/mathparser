@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Linq;
-using shunting_yard;
+using MathParser;
 using System.Collections.Generic;
 
 namespace ExpressionTest
 {
-	[TestFixture()]
+	[TestFixture]
 	public class TokenizerTest
 	{
 		private void AssertTokensMatch(string expression, params Token[] expectedTokens)
@@ -18,16 +18,28 @@ namespace ExpressionTest
 
 		private Token Token(TokenType tokenType, string value)
 		{
-			return new Token(tokenType, value);
+			return new Token(tokenType, value, 0);
 		}
 
-		[Test()]
+		[Test]
+		public void TestQuestionMark()
+		{
+			Assert.AreEqual(TokenType.QuestionMark, Tokenizer.GetTokens("?").First().TokenType);
+		}
+
+		[Test]
+		public void TestMultiChar()
+		{
+			Assert.AreEqual(TokenType.LessOrEqual, Tokenizer.GetTokens("<=").First().TokenType);
+		}
+
+		//[Test]
 		public void TestCase()
 		{
-			AssertTokensMatch("x+y", 
-				Token(TokenType.Ident, "x"),
+			AssertTokensMatch("x+y",
+				Token(TokenType.Identifier, "x"),
 				Token(TokenType.Plus, "+"),
-				Token(TokenType.Ident, "y")
+				Token(TokenType.Identifier, "y")
 			);
 		}
 	}

@@ -1,4 +1,6 @@
-﻿namespace shunting_yard
+﻿using System;
+
+namespace MathParser
 {
 	interface IExpressionVisitor
 	{
@@ -8,12 +10,32 @@
 
 		void Visit(PostfixExpression postfixExpression);
 
+		void Visit(GroupExpression groupExpression);
+
 		void Visit(ValueExpression valueExpression);
 
-		void Visit(FunctionExpression functionExpression);
+		void Visit(CallExpression functionExpression);
 
 		void Visit(VariableExpression variableExpression);
 
 		void Visit(VariableAssignmentExpression variableAssignmentExpression);
+
+		void Visit(TernaryExpression ternaryExpression);
+
+		void Visit(ComparisonExpression comparisonExpression);
+
+		void Visit(FunctionAssignmentExpression functionAssignmentExpression);
+	}
+
+	static class ExpressionVisitorExtensions
+	{
+		public static void Traverse(this IExpressionVisitor visitor, Action visitSelf, params IExpression[] children)
+		{
+			foreach (IExpression child in children)
+			{
+				child.Accept(visitor);
+			}
+			visitSelf();
+		}
 	}
 }

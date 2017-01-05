@@ -1,4 +1,4 @@
-﻿namespace shunting_yard
+﻿namespace MathParser
 {
 	class PrefixExpression : IExpression
 	{
@@ -7,15 +7,14 @@
 		public IExpression RightOperand { get; }
 
 		public PrefixExpression(PrefixExpressionType prefixExpressionType, IExpression rightOperand)
-		{	
+		{
 			PrefixExpressionType = prefixExpressionType;
 			RightOperand = rightOperand;
 		}
 
 		public void Accept(IExpressionVisitor visitor)
 		{
-			RightOperand.Accept(visitor);
-			visitor.Visit(this);
+			visitor.Traverse(() => visitor.Visit(this), RightOperand);
 		}
 	}
 }

@@ -1,7 +1,8 @@
-﻿namespace shunting_yard
+﻿namespace MathParser
 {
 	enum PrefixExpressionType
 	{
-		Negation
+		Negation,
+		Positive
 	}
 }

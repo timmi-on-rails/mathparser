@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace shunting_yard
+namespace MathParser
 {
 	static class Tokenizer
 	{
@@ -17,27 +18,54 @@ namespace shunting_yard
 			{ ")", TokenType.Rpar },
 			{ "^", TokenType.Pow },
 			{ "=", TokenType.Equal },
-			{ ",", TokenType.Comma }
+			{ ",", TokenType.Comma },
+			{ "?", TokenType.QuestionMark },
+			{ ":", TokenType.Colon },
+			{ "<", TokenType.Smaller },
+			{ ">", TokenType.Bigger },
+			{ "<=", TokenType.LessOrEqual }
 		};
 
 		public static IEnumerable<Token> GetTokens(string expression)
 		{
-			Regex RE = new Regex(@"([\" + String.Join(@"\", terminals.Keys) + "])");
-			string[] tokens = RE.Split(expression).Where(x => !string.IsNullOrEmpty(x)).ToArray();
+			Regex RE = new Regex(@"([\s\" + String.Join(@"\", terminals.Keys.OrderByDescending(x => x.Length)) + "])");
+			string[] tokensWithWhiteSpace = RE.Split(expression).ToArray();
+			//tokensWithWhiteSpace = expression.Split(terminals.Keys.ToArray(), StringSplitOptions.None);
 
-			foreach (string token in tokens)
+			int i = 0;
+
+			foreach (string token in tokensWithWhiteSpace)
 			{
-				if (terminals.ContainsKey(token))
+				if (!string.IsNullOrWhiteSpace(token))
 				{
-					yield return new Token(terminals[token], token);
+					if (terminals.ContainsKey(token))
+					{
+						yield return new Token(terminals[token], token, i);
+					}
+					else
+					{
+						string trimmedToken = token.Trim();
+						int index = i + token.IndexOf(trimmedToken, StringComparison.Ordinal);
+						double tmp;
+						if (Double.TryParse(trimmedToken, NumberStyles.Any, CultureInfo.InvariantCulture, out tmp))
+						{
+							yield return new Token(TokenType.Numeric, trimmedToken, index);
+						}
+						else if (Char.IsLetter(trimmedToken[0]) && trimmedToken.All(c => Char.IsLetterOrDigit(c) || c == '_'))
+						{
+							yield return new Token(TokenType.Identifier, trimmedToken, index);
+						}
+						else
+						{
+							yield return new Token(TokenType.Unknown, trimmedToken, index);
+						}
+					}
 				}
-				else
-				{
-					yield return new Token(TokenType.Ident, token.Trim());
-				}
+
+				i += token.Length;
 			}
 
-			yield return new Token(TokenType.Eof, "");
+			yield return new Token(TokenType.Eof, "", i);
 		}
 	}
 }

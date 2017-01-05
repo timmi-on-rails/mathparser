@@ -1,6 +1,10 @@
-﻿namespace shunting_yard
+﻿namespace MathParser
 {
-	interface IExpression
+	interface IExpression : ISyntaxNode
+	{
+	}
+
+	interface ISyntaxNode
 	{
 		void Accept(IExpressionVisitor visitor);
 	}

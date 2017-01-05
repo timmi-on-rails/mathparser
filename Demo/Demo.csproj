@@ -29,16 +29,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="shunting_yard">
+      <HintPath>..\shunting_yard\bin\Debug\shunting_yard.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\shunting_yard\shunting_yard.csproj">
-      <Project>{0BFAE215-D589-446E-8FED-89A00EAB498C}</Project>
-      <Name>shunting_yard</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

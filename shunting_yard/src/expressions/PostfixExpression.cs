@@ -1,4 +1,4 @@
-﻿namespace shunting_yard
+﻿namespace MathParser
 {
 	class PostfixExpression : IExpression
 	{
@@ -6,11 +6,15 @@
 
 		public IExpression LeftOperand { get; }
 
+		public PostfixExpression(PostfixExpressionType postfixExpressionType, IExpression leftOperand)
+		{
+			PostfixExpressionType = postfixExpressionType;
+			LeftOperand = leftOperand;
+		}
+
 		public void Accept(IExpressionVisitor visitor)
 		{
-			LeftOperand.Accept(visitor);
-			visitor.Visit(this);
+			visitor.Traverse(() => visitor.Visit(this), LeftOperand);
 		}
 	}
 }
-

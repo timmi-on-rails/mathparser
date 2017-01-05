@@ -1,25 +1,23 @@
-﻿namespace shunting_yard
+﻿namespace MathParser
 {
 	class BinaryExpression : IExpression
 	{
+		public BinaryExpressionType BinaryExpressionType { get; }
+
 		public IExpression LeftOperand { get; }
 
 		public IExpression RightOperand { get; }
 
-		public BinaryExpressionType BinaryExpressionType { get; }
-
 		public BinaryExpression(BinaryExpressionType binaryExpressionType, IExpression leftOperand, IExpression rightOperand)
-		{		
-			BinaryExpressionType = binaryExpressionType;	
+		{
+			BinaryExpressionType = binaryExpressionType;
 			LeftOperand = leftOperand;
 			RightOperand = rightOperand;
 		}
 
 		public void Accept(IExpressionVisitor visitor)
 		{
-			LeftOperand.Accept(visitor);
-			RightOperand.Accept(visitor);
-			visitor.Visit(this);
+			visitor.Traverse(() => visitor.Visit(this), LeftOperand, RightOperand);
 		}
 	}
 }

@@ -1,18 +1,20 @@
-﻿using System;
-
-namespace shunting_yard
+﻿namespace MathParser
 {
-	// TODO needs some context for showing error messages
 	class Token
 	{
 		public TokenType TokenType { get; }
 
-		public string Value { get; }
+		public string Content { get; }
 
-		public Token(TokenType tokenType, string value)
+		public int Position { get; }
+
+		public Token(TokenType tokenType, string content, int position)
 		{
 			TokenType = tokenType;
-			Value = value;
+			Content = content;
+			Position = position;
 		}
 	}
 }
+
+

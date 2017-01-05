@@ -1,5 +1,7 @@
 ﻿using System;
-using shunting_yard;
+using System.Diagnostics;
+using System.IO;
+using MathParser;
 
 namespace Demo
 {
@@ -10,16 +12,38 @@ namespace Demo
 
 
 			string line;
-			MathParser mathParser = new MathParser();
+			MathParser.MathParser mathParser = new MathParser.MathParser();
 
 			while ((line = Console.ReadLine()) != "exit")
 			{
 				try
 				{
 					ExpressionTree e = mathParser.Parse(line);
-					Console.WriteLine(e.ToString() + " -> " + e.Evaluate());
+					try
+					{
+						e.Assign();
+					}
+					catch (Exception e1)
+					{
+						Console.WriteLine("parse error: " + e1.Message);
+					}
+
+					try
+					{
+						string detail = e.ToDebug();
+						Console.Write(detail);
+						File.WriteAllText("test.graphviz", e.ToGraphviz());
+						Process.Start("/usr/bin/dot", "-Tgif -otest.gif test.graphviz");
+						double d = e.Evaluate();
+						Console.WriteLine(" = " + d);
+					}
+					catch (Exception e2)
+					{
+						Console.WriteLine("parse error: " + e2.Message);
+					}
+
 				}
-				catch (FormatException fe)
+				catch (Exception fe)
 				{
 					Console.WriteLine(fe.Message);
 				}

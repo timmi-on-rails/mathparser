@@ -10,3 +10,5 @@
 /home/tom/Quelltexte/MathExpressionParser/shunting_yard/bin/Debug/shunting_yard.dll
 /home/tom/Quelltexte/MathExpressionParser/shunting_yard/obj/Debug/shunting_yard.dll
 /home/tom/Quelltexte/MathExpressionParser/shunting_yard/obj/Debug/shunting_yard.dll.mdb
+/home/tom/Quelltexte/MathExpressionParser/shunting_yard/obj/Debug/.NETFramework,Version=v4.6.AssemblyAttribute.cs
+/home/tom/Quelltexte/MathExpressionParser/shunting_yard/obj/Debug/.NETFramework,Version=v4.6.1.AssemblyAttribute.cs

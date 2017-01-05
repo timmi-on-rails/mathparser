@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace shunting_yard
+﻿namespace MathParser
 {
 	enum BinaryExpressionType
 	{

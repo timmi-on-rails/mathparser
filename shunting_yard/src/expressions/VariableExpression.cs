@@ -1,22 +1,17 @@
-﻿using System;
-
-namespace shunting_yard
+﻿namespace MathParser
 {
 	class VariableExpression : IExpression
 	{
-		private readonly VariablesManager _variablesManager;
-
 		public string VariableName { get; }
 
-		public VariableExpression(string variableName, VariablesManager variableManager)
+		public VariableExpression(string variableName)
 		{
 			VariableName = variableName;
-			_variablesManager = variableManager;
 		}
 
 		public void Accept(IExpressionVisitor visitor)
 		{
-			visitor.Visit(this);
+			visitor.Traverse(() => visitor.Visit(this));
 		}
 	}
 }
