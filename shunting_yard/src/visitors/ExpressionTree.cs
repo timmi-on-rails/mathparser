@@ -2,28 +2,30 @@
 {
 	public class ExpressionTree
 	{
-		private readonly IExpression _rootExpression;
+		readonly IExpression _rootExpression;
 
-		MathParser _parser;
-
-		internal ExpressionTree(MathParser parser, IExpression rootExpression)
+		internal ExpressionTree(IExpression rootExpression)
 		{
 			_rootExpression = rootExpression;
-			_parser = parser;
 		}
 
-		public double Evaluate()
+		public object Evaluate()
 		{
-			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(_parser.FunctionsManager, _parser.VariablesManager);
+			return Evaluate(null, null);
+		}
+
+		public object Evaluate(IVariableProvider variableProvider, IFunctionProvider functionProvider)
+		{
+			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(functionProvider, variableProvider);
 			_rootExpression.Accept(evaluationVisitor);
 			return evaluationVisitor.GetResult();
 		}
 
-		public void Assign()
+		/*public void Assign()
 		{
 			AssignVisitor assignVisitor = new AssignVisitor(_parser.FunctionsManager, _parser.VariablesManager);
 			_rootExpression.Accept(assignVisitor);
-		}
+		}*/
 
 		public string ToDebug()
 		{

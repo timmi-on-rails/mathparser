@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTest", "Expressio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{19445B87-ABD9-426D-B64E-69C5BA36CDFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{F9770B91-1532-4CF0-BDDC-0B50890ABB00}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9770B91-1532-4CF0-BDDC-0B50890ABB00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9770B91-1532-4CF0-BDDC-0B50890ABB00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9770B91-1532-4CF0-BDDC-0B50890ABB00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9770B91-1532-4CF0-BDDC-0B50890ABB00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

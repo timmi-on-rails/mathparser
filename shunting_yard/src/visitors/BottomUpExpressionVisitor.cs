@@ -1,8 +1,9 @@
-﻿using System;
-namespace MathParser
+﻿namespace MathParser
 {
-	abstract class AbstractExpressionVisitor : IExpressionVisitor
+	abstract class BottomUpExpressionVisitor : IExpressionVisitor
 	{
+		public Traversal Traversal { get { return Traversal.BottomUp; } }
+
 		public virtual void Visit(PostfixExpression postfixExpression)
 		{
 		}
@@ -35,7 +36,7 @@ namespace MathParser
 		{
 		}
 
-		public virtual void Visit(ValueExpression valueExpression)
+		public virtual void Visit(NumberExpression numberExpression)
 		{
 		}
 

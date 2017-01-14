@@ -1,10 +1,6 @@
 ﻿namespace MathParser
 {
-	interface IExpression : ISyntaxNode
-	{
-	}
-
-	interface ISyntaxNode
+	interface IExpression
 	{
 		void Accept(IExpressionVisitor visitor);
 	}

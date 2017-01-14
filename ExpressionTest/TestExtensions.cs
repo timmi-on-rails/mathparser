@@ -7,7 +7,7 @@ namespace ExpressionTest
 		public static double Evaluate(this string mathExpression)
 		{
 			MathParser.MathParser mathParser = new MathParser.MathParser();
-			return mathParser.Parse(mathExpression).Evaluate();
+			return (double)mathParser.Parse(mathExpression).Evaluate();
 		}
 
 		public static void ShouldParseAs(this string mathExpression, string expected)

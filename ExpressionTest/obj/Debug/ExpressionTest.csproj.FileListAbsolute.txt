@@ -1,0 +1,8 @@
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\bin\Debug\ExpressionTest.dll
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\bin\Debug\ExpressionTest.pdb
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\bin\Debug\nunit.framework.dll
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\bin\Debug\shunting_yard.dll
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\bin\Debug\nunit.framework.xml
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\obj\Debug\ExpressionTest.csprojResolveAssemblyReference.cache
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\obj\Debug\ExpressionTest.dll
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\ExpressionTest\obj\Debug\ExpressionTest.pdb

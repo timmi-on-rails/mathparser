@@ -19,7 +19,7 @@ namespace MathParser
 			if (argNames.Contains(variableExpression.VariableName))
 			{
 				int idx = argNames.ToList().IndexOf(variableExpression.VariableName);
-				_stack.Push(arguments[idx]);
+				_evaluationStack.Push(arguments[idx]);
 			}
 			else
 			{

@@ -1,10 +1,10 @@
 ﻿namespace MathParser
 {
-	class ValueExpression : IExpression
+	class NumberExpression : IExpression
 	{
 		public double Value { get; }
 
-		public ValueExpression(double value)
+		public NumberExpression(double value)
 		{
 			Value = value;
 		}

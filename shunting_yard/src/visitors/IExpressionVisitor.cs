@@ -4,6 +4,8 @@ namespace MathParser
 {
 	interface IExpressionVisitor
 	{
+		Traversal Traversal { get; }
+
 		void Visit(BinaryExpression binaryExpression);
 
 		void Visit(PrefixExpression prefixExpression);
@@ -12,7 +14,7 @@ namespace MathParser
 
 		void Visit(GroupExpression groupExpression);
 
-		void Visit(ValueExpression valueExpression);
+		void Visit(NumberExpression numberExpression);
 
 		void Visit(CallExpression functionExpression);
 
@@ -31,10 +33,23 @@ namespace MathParser
 	{
 		public static void Traverse(this IExpressionVisitor visitor, Action visitSelf, params IExpression[] children)
 		{
-			foreach (IExpression child in children)
+			Traversal traversal = visitor.Traversal;
+
+			if (traversal == Traversal.BottomUp)
 			{
-				child.Accept(visitor);
+				foreach (IExpression child in children)
+				{
+					child.Accept(visitor);
+				}
 			}
+			else if (traversal == Traversal.None)
+			{
+			}
+			else
+			{
+				throw new ArgumentException("unknown traversal type");
+			}
+
 			visitSelf();
 		}
 	}

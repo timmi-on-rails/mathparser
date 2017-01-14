@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace MathParser
 {
-	class FunctionsManager
+	class FunctionsManager : IFunctionProvider
 	{
-		private readonly Dictionary<FunctionKey, Func<double[], double> > _functions = new Dictionary<FunctionKey, Func<double[], double> >();
+		readonly Dictionary<FunctionKey, Func<object[], object>> _functions = new Dictionary<FunctionKey, Func<object[], object>>();
 
 		public bool IsDefined(string functionName, int argumentCount)
 		{
@@ -13,13 +13,13 @@ namespace MathParser
 			return _functions.ContainsKey(fKey);
 		}
 
-		public void Define(string functionName, Func<double[], double> function, int? argumentCount = null)
+		public void Define(string functionName, Func<object[], object> function, int? argumentCount = null)
 		{
 			FunctionKey fKey = new FunctionKey(functionName, argumentCount);
 			_functions[fKey] = function;
 		}
 
-		public double Call(string functionName, double[] arguments)
+		public object Call(string functionName, object[] arguments)
 		{
 			FunctionKey fKey = new FunctionKey(functionName, arguments.Length);
 			return _functions[fKey](arguments);
@@ -29,7 +29,7 @@ namespace MathParser
 		{
 			public string Name { get; }
 
-			public int? ArgumentCount{ get; }
+			public int? ArgumentCount { get; }
 
 			public FunctionKey(string name, int? argumentCount)
 			{

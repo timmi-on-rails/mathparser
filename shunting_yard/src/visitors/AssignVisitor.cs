@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MathParser
-{
+{/*
 	class AssignVisitor : AbstractExpressionVisitor
 	{
 		FunctionsManager functionsManager;
@@ -15,7 +15,7 @@ namespace MathParser
 
 		public override void Visit(VariableAssignmentExpression variableAssignmentExpression)
 		{
-			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(functionsManager, variablesManager);
+			BottomUpEvaluationVisitor evaluationVisitor = new BottomUpEvaluationVisitor(functionsManager, variablesManager);
 			variableAssignmentExpression.Expression.Accept(evaluationVisitor);
 
 			variablesManager.Set(variableAssignmentExpression.VariableName, evaluationVisitor.GetResult());
@@ -31,5 +31,5 @@ namespace MathParser
 				return fExpEvaluationVisitor.GetResult();
 			});
 		}
-	}
+	}*/
 }

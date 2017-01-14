@@ -1,9 +1,0 @@
-/home/tom/Quelltexte/MathExpressionParser/GUI/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/tom/Quelltexte/MathExpressionParser/GUI/obj/Debug/GUI.gtk-gui.gui.stetic
-/home/tom/Quelltexte/MathExpressionParser/GUI/bin/Debug/GUI.exe.mdb
-/home/tom/Quelltexte/MathExpressionParser/GUI/bin/Debug/GUI.exe
-/home/tom/Quelltexte/MathExpressionParser/GUI/obj/Debug/GUI.exe
-/home/tom/Quelltexte/MathExpressionParser/GUI/obj/Debug/GUI.exe.mdb
-/home/tom/Quelltexte/MathExpressionParser/GUI/bin/Debug/shunting_yard.dll
-/home/tom/Quelltexte/MathExpressionParser/GUI/bin/Debug/OxyPlot.dll
-/home/tom/Quelltexte/MathExpressionParser/GUI/bin/Debug/OxyPlot.GtkSharp.dll

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MathParser
 {
-	class GraphvizVisitor : AbstractExpressionVisitor
+	class GraphvizVisitor : BottomUpExpressionVisitor
 	{
 		StringBuilder stringBuilder = new StringBuilder();
 		int id = 0;
@@ -31,7 +31,7 @@ namespace MathParser
 			consume(binaryExpression.BinaryExpressionType.ToString(), 2);
 		}
 
-		public override void Visit(ValueExpression valueExpression)
+		public override void Visit(NumberExpression valueExpression)
 		{
 			consume(valueExpression.Value.ToString(), 0);
 		}

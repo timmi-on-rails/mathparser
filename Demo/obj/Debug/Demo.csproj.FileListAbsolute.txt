@@ -1,0 +1,6 @@
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\Demo\obj\Debug\Demo.exe
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\Demo\bin\Debug\Demo.exe
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\Demo\bin\Debug\Demo.pdb
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\Demo\bin\Debug\shunting_yard.dll
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\Demo\obj\Debug\Demo.csprojResolveAssemblyReference.cache
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\Demo\obj\Debug\Demo.pdb

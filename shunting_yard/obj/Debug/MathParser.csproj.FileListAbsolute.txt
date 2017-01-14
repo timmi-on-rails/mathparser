@@ -1,0 +1,2 @@
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\shunting_yard\obj\Debug\MathParser.csprojResolveAssemblyReference.cache
+C:\Users\Tom\Desktop\Quelltexte\Quelltexte\MathExpressionParser\shunting_yard\obj\Debug\shunting_yard.dll

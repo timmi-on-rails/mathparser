@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace MathParser
 {
-	class VariablesManager
+	public class VariablesManager : IVariableProvider
 	{
-		private readonly Dictionary<string, double> _variables = new Dictionary<string, double>();
+		readonly Dictionary<string, object> _variables = new Dictionary<string, object>();
 
 		public bool IsSet(string variableName)
 		{
 			return _variables.ContainsKey(variableName);
 		}
 
-		public double Get(string variableName)
+		public object Get(string variableName)
 		{
 			return _variables[variableName];
 		}
 
-		public void Set(string variableName, double value)
+		public void Set(string variableName, object value)
 		{
 			_variables[variableName] = value;
 		}

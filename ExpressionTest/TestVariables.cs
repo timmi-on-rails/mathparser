@@ -12,9 +12,9 @@ namespace ExpressionTest
 		{
 			MathParser.MathParser parser = new MathParser.MathParser();
 			ExpressionTree tree = parser.Parse("a = 3");
-			tree.Assign();
+			//tree.Assign();
 
-			double a = parser.Parse("a").Evaluate();
+			double a = (double)parser.Parse("a=3").Evaluate();
 			Assert.AreEqual(3, a);
 		}
 

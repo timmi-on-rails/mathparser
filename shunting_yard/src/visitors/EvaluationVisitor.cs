@@ -4,126 +4,234 @@ using System.Collections.Generic;
 
 namespace MathParser
 {
-	class EvaluationVisitor : AbstractExpressionVisitor
+	class EvaluationVisitor : IExpressionVisitor
 	{
-		protected readonly Stack<double> _stack = new Stack<double>();
-		private readonly Stack<bool> _stackBools = new Stack<bool>();
+		readonly IFunctionProvider _functionProvider;
+		readonly IVariableProvider _variableProvider;
+		protected readonly Stack<object> _evaluationStack;
 
-		FunctionsManager _functionManager;
-		VariablesManager _variablesManager;
+		public Traversal Traversal { get { return Traversal.None; } }
 
-		public EvaluationVisitor(FunctionsManager fM, VariablesManager vm)
+		public EvaluationVisitor(IFunctionProvider functionProvider, IVariableProvider variableProvider)
 		{
-			_functionManager = fM;
-			_variablesManager = vm;
+			_functionProvider = functionProvider;
+			_variableProvider = variableProvider;
+			_evaluationStack = new Stack<object>();
 		}
 
-		public double GetResult()
+		public object GetResult()
 		{
-			if (_stack.Count == 1)
+			if (_evaluationStack.Count == 1)
 			{
-				return _stack.Pop();
+				return _evaluationStack.Pop();
 			}
 			else
 			{
-				throw new ArgumentException("wahhhh zu viele: " + _stack.Count);
+				throw new EvaluationException("Evaluation stack still contains " + _evaluationStack.Count +
+											  " values. It should contain exactly one value.");
 			}
 		}
 
-		public override void Visit(BinaryExpression binaryExpression)
+		public void Visit(BinaryExpression binaryExpression)
 		{
-			double right = _stack.Pop();
-			double left = _stack.Pop();
-			double result;
+			binaryExpression.LeftOperand.Accept(this);
+			binaryExpression.RightOperand.Accept(this);
 
-			switch (binaryExpression.BinaryExpressionType)
+			object rightOperand = _evaluationStack.Pop();
+			object leftOperand = _evaluationStack.Pop();
+
+			if ((leftOperand is double) && (rightOperand is double))
 			{
-				case BinaryExpressionType.Add:
-					result = left + right;
-					break;
-				case BinaryExpressionType.Sub:
-					result = left - right;
-					break;
-				case BinaryExpressionType.Mul:
-					result = left * right;
-					break;
-				case BinaryExpressionType.Div:
-					result = left / right;
-					break;
-				case BinaryExpressionType.Pow:
-					result = Math.Pow(left, right);
-					break;
-				default:
-					throw new ArgumentException("unknown binary expr " + binaryExpression.BinaryExpressionType);
+				double leftValue = (double)leftOperand;
+				double rightValue = (double)rightOperand;
+				double result;
+
+				switch (binaryExpression.BinaryExpressionType)
+				{
+					case BinaryExpressionType.Add:
+						result = leftValue + rightValue;
+						break;
+					case BinaryExpressionType.Sub:
+						result = leftValue - rightValue;
+						break;
+					case BinaryExpressionType.Mul:
+						result = leftValue * rightValue;
+						break;
+					case BinaryExpressionType.Div:
+						result = leftValue / rightValue;
+						break;
+					case BinaryExpressionType.Pow:
+						result = Math.Pow(leftValue, rightValue);
+						break;
+					default:
+						string message = String.Format("Unhandled binary operation {0}.", binaryExpression.BinaryExpressionType);
+						throw new EvaluationException(message);
+				}
+
+				_evaluationStack.Push(result);
 			}
-
-			_stack.Push(result);
-		}
-
-		public override void Visit(PrefixExpression prefixExpression)
-		{
-			switch (prefixExpression.PrefixExpressionType)
+			else
 			{
-				case PrefixExpressionType.Negation:
-					_stack.Push(-_stack.Pop());
-					break;
-				default:
-					throw new ArgumentException("unknown unary expr " + prefixExpression.PrefixExpressionType);
+				string message = String.Format("Incompatible types of operands {0} and {1} for binary operation {2}.",
+							   leftOperand, rightOperand, binaryExpression.BinaryExpressionType);
+				throw new EvaluationException(message);
 			}
 		}
 
-		public override void Visit(ValueExpression valueExpression)
+		public void Visit(PrefixExpression prefixExpression)
 		{
-			_stack.Push(valueExpression.Value);
-		}
+			prefixExpression.RightOperand.Accept(this);
 
-		public override void Visit(CallExpression functionExpression)
-		{
-			List<double> args = new List<double>();
+			object operand = _evaluationStack.Pop();
 
-			for (int i = 0; i < functionExpression.Arguments.Count(); i++)
+			if (operand is double)
 			{
-				args.Add(_stack.Pop());
+				double value = (double)operand;
+				double result;
+
+				switch (prefixExpression.PrefixExpressionType)
+				{
+					case PrefixExpressionType.Negation:
+						result = -value;
+						break;
+					default:
+						string message = String.Format("Unhandled prefix operation {0}.", prefixExpression.PrefixExpressionType);
+						throw new EvaluationException(message);
+				}
+
+				_evaluationStack.Push(result);
 			}
-			args.Reverse();
-
-			_stack.Push(_functionManager.Call(functionExpression.FunctionName, args.ToArray()));
-		}
-
-		public override void Visit(TernaryExpression ternaryExpression)
-		{
-			double falseVale = _stack.Pop();
-			double trueVal = _stack.Pop();
-			bool compRes = _stackBools.Pop();
-			_stack.Push(compRes ? trueVal : falseVale);
-		}
-
-		public override void Visit(ComparisonExpression comparisonExpression)
-		{
-			double right = _stack.Pop();
-			double left = _stack.Pop();
-			bool result;
-
-			switch (comparisonExpression.ComparisonExpressionType)
+			else
 			{
-				case ComparisonExpressionType.Less:
-					result = left < right;
-					break;
-				default:
-					throw new ArgumentException("unknown comparison expr " + comparisonExpression.ComparisonExpressionType);
+				string message = String.Format("Unable to execute prefix operation {0} for operand {1}.",
+											   prefixExpression.PrefixExpressionType, operand);
+				throw new EvaluationException(message);
 			}
-
-			_stackBools.Push(result);
 		}
 
-		public override void Visit(VariableExpression variableExpression)
+		public void Visit(NumberExpression numberExpression)
 		{
-			if (!_variablesManager.IsSet(variableExpression.VariableName))
+			_evaluationStack.Push(numberExpression.Value);
+		}
+
+		public void Visit(CallExpression functionExpression)
+		{
+			foreach (IExpression argument in functionExpression.Arguments)
 			{
-				throw new UnknownVariableException();
+				argument.Accept(this);
 			}
 
-			_stack.Push(_variablesManager.Get(variableExpression.VariableName));
+			int numArguments = functionExpression.Arguments.Count();
+
+			if (_functionProvider.IsDefined(functionExpression.FunctionName, numArguments))
+			{
+				List<object> arguments = new List<object>();
+
+				for (int i = 0; i < numArguments; i++)
+				{
+					arguments.Add(_evaluationStack.Pop());
+				}
+				arguments.Reverse();
+
+				object result = _functionProvider.Call(functionExpression.FunctionName, arguments.ToArray());
+				_evaluationStack.Push(result);
+			}
+			else
+			{
+				throw new EvaluationException("Undefined function " + functionExpression.FunctionName +
+											  " with " + numArguments + " arguments.");
+			}
+		}
+
+		public void Visit(TernaryExpression ternaryExpression)
+		{
+			ternaryExpression.Condition.Accept(this);
+			object conditionOperand = _evaluationStack.Pop();
+
+			if (conditionOperand is bool)
+			{
+				bool condition = (bool)conditionOperand;
+
+				if (condition)
+				{
+					ternaryExpression.TrueCase.Accept(this);
+				}
+				else
+				{
+					ternaryExpression.FalseCase.Accept(this);
+				}
+			}
+			else
+			{
+				string message = String.Format("Condition in ternary operation must be boolean, got " + conditionOperand + " instead.");
+				throw new EvaluationException(message);
+			}
+		}
+
+		public void Visit(ComparisonExpression comparisonExpression)
+		{
+			comparisonExpression.LeftOperand.Accept(this);
+			comparisonExpression.RightOperand.Accept(this);
+
+			object rightOperand = _evaluationStack.Pop();
+			object leftOperand = _evaluationStack.Pop();
+
+			if ((leftOperand is double) && (rightOperand is double))
+			{
+				double leftValue = (double)leftOperand;
+				double rightValue = (double)rightOperand;
+				bool result;
+
+				switch (comparisonExpression.ComparisonExpressionType)
+				{
+					case ComparisonExpressionType.Less:
+						result = leftValue < rightValue;
+						break;
+					default:
+						string message = String.Format("Unhandled comparison operation {0}.", comparisonExpression.ComparisonExpressionType);
+						throw new EvaluationException(message);
+				}
+
+				_evaluationStack.Push(result);
+			}
+			else
+			{
+				string message = String.Format("Incompatible types of operands {0} and {1} for comparsion operation {2}.",
+							   leftOperand, rightOperand, comparisonExpression.ComparisonExpressionType);
+				throw new EvaluationException(message);
+			}
+		}
+
+		public virtual void Visit(VariableExpression variableExpression)
+		{
+			if (_variableProvider.IsSet(variableExpression.VariableName))
+			{
+				_evaluationStack.Push(_variableProvider.Get(variableExpression.VariableName));
+			}
+			else
+			{
+				throw new EvaluationException("Unknown variable " + variableExpression.VariableName + ".");
+			}
+		}
+
+		public void Visit(PostfixExpression postfixExpression)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Visit(GroupExpression groupExpression)
+		{
+			groupExpression.Operand.Accept(this);
+		}
+
+		public void Visit(VariableAssignmentExpression variableAssignmentExpression)
+		{
+			variableAssignmentExpression.Expression.Accept(this);
+		}
+
+		public void Visit(FunctionAssignmentExpression functionAssignmentExpression)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

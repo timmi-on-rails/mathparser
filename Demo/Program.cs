@@ -21,7 +21,7 @@ namespace Demo
 					ExpressionTree e = mathParser.Parse(line);
 					try
 					{
-						e.Assign();
+						//e.Assign();
 					}
 					catch (Exception e1)
 					{
@@ -34,7 +34,7 @@ namespace Demo
 						Console.Write(detail);
 						File.WriteAllText("test.graphviz", e.ToGraphviz());
 						Process.Start("/usr/bin/dot", "-Tgif -otest.gif test.graphviz");
-						double d = e.Evaluate();
+						object d = e.Evaluate();
 						Console.WriteLine(" = " + d);
 					}
 					catch (Exception e2)

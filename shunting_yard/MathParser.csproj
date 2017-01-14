@@ -34,16 +34,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\expressions\BinaryExpression.cs" />
-    <Compile Include="src\expressions\ValueExpression.cs" />
+    <Compile Include="src\expressions\NumberExpression.cs" />
     <Compile Include="src\expressions\IExpression.cs" />
     <Compile Include="src\tokenizer\TokenType.cs" />
     <Compile Include="src\tokenizer\Tokenizer.cs" />
@@ -67,7 +63,7 @@
     <Compile Include="src\expressions\ComparisonExpression.cs" />
     <Compile Include="src\expressions\ComparisonExpressionType.cs" />
     <Compile Include="src\expressions\FunctionAssignmentExpression.cs" />
-    <Compile Include="src\visitors\AbstractExpressionVisitor.cs" />
+    <Compile Include="src\visitors\BottomUpExpressionVisitor.cs" />
     <Compile Include="src\visitors\AssignVisitor.cs" />
     <Compile Include="src\visitors\FunctionExpressionVisitor.cs" />
     <Compile Include="src\visitors\PrintVisitor.cs" />
@@ -93,6 +89,10 @@
     <Compile Include="src\parser\parselets\AssignParselet.cs" />
     <Compile Include="src\parser\exceptions\UnknownVariableException.cs" />
     <Compile Include="src\expressions\GroupExpression.cs" />
+    <Compile Include="src\parser\IVariableProvider.cs" />
+    <Compile Include="src\visitors\EvaluationException.cs" />
+    <Compile Include="src\parser\IFunctionProvider.cs" />
+    <Compile Include="src\visitors\Traversal.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

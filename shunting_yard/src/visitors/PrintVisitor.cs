@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MathParser
 {
-	class PrintVisitor : AbstractExpressionVisitor
+	class PrintVisitor : BottomUpExpressionVisitor
 	{
 		readonly Stack<string> _returnStack = new Stack<string>();
 
@@ -39,7 +39,7 @@ namespace MathParser
 			_returnStack.Push(output);
 		}
 
-		public override void Visit(ValueExpression valueExpression)
+		public override void Visit(NumberExpression valueExpression)
 		{
 			_returnStack.Push(valueExpression.Value.ToString());
 		}
