@@ -1,35 +1,10 @@
 ﻿<Properties StartupConfiguration="{19445B87-ABD9-426D-B64E-69C5BA36CDFB}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="ExpressionTest/TokenizerTest.cs">
     <Files>
-      <File FileName="shunting_yard/src/tokenizer/TokenStream.cs" Line="13" Column="38" />
-      <File FileName="shunting_yard/src/tokenizer/Tokenizer.cs" Line="39" Column="25" />
-      <File FileName="shunting_yard/src/tokenizer/Token.cs" Line="5" Column="23" />
-      <File FileName="shunting_yard/src/parser/MathParser.cs" Line="12" Column="37" />
-      <File FileName="shunting_yard/src/tokenizer/TokenType.cs" Line="15" Column="16" />
-      <File FileName="ExpressionTest/TestExtensions.cs" Line="10" Column="1" />
-      <File FileName="ExpressionTest/TokenizerTest.cs" Line="33" Column="1" />
+      <File FileName="ExpressionTest/TokenizerTest.cs" Line="34" Column="59" />
+      <File FileName="shunting_yard/src/tokenizer/Tokenizer.cs" Line="19" Column="19" />
+      <File FileName="shunting_yard/src/tokenizer/TokenType.cs" Line="5" Column="3" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="shunting_yard" expanded="True">
-            <Node name="Demo" expanded="True" />
-            <Node name="ExpressionTest" expanded="True">
-              <Node name="TokenizerTest.cs" selected="True" />
-            </Node>
-            <Node name="MathParser" expanded="True">
-              <Node name="src" expanded="True">
-                <Node name="expressions" expanded="True" />
-                <Node name="parser" expanded="True">
-                  <Node name="parselets" expanded="True" />
-                </Node>
-                <Node name="tokenizer" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

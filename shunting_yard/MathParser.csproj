@@ -34,7 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -42,7 +41,6 @@
     <Compile Include="src\expressions\NumberExpression.cs" />
     <Compile Include="src\expressions\IExpression.cs" />
     <Compile Include="src\tokenizer\TokenType.cs" />
-    <Compile Include="src\tokenizer\Tokenizer.cs" />
     <Compile Include="src\tokenizer\Token.cs" />
     <Compile Include="src\expressions\CallExpression.cs" />
     <Compile Include="src\expressions\VariableExpression.cs" />
@@ -93,6 +91,7 @@
     <Compile Include="src\visitors\EvaluationException.cs" />
     <Compile Include="src\parser\IFunctionProvider.cs" />
     <Compile Include="src\visitors\Traversal.cs" />
+    <Compile Include="src\tokenizer\Tokenizer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

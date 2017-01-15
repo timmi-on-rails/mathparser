@@ -1,120 +1,321 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Text;
 
 namespace MathParser
 {
-	static class Tokenizer
+	class Tokenizer
 	{
-		static readonly IReadOnlyDictionary<string, TokenType> terminals = new Dictionary<string, TokenType>
+		static readonly Dictionary<string, TokenType> _keywords = new Dictionary<string, TokenType>
 		{
-			{ "+", TokenType.Plus },
-			{ "-", TokenType.Minus },
-			{ "*", TokenType.Star },
-			{ "/", TokenType.Slash },
-			{ "(", TokenType.Lpar },
-			{ ")", TokenType.Rpar },
-			{ "^", TokenType.Pow },
-			{ "=", TokenType.Equal },
-			{ ",", TokenType.Comma },
-			{ "?", TokenType.QuestionMark },
-			{ ":", TokenType.Colon },
-			{ "<", TokenType.Smaller },
-			{ ">", TokenType.Bigger },
-			{ "<=", TokenType.LessOrEqual }
+			{ "true", TokenType.True },
+			{ "false", TokenType.False },
+			{ "ans", TokenType.Ans }
 		};
 
-		static readonly int maxCharCountTerminals;
+		readonly StringBuilder _tokenContentBuilder;
+		readonly IEnumerator<char> _charsEnumerator;
+		int _index = -1;
+		bool _reachedEndOfFile;
 
-		static Tokenizer()
+		Tokenizer(IEnumerator<char> charsEnumerator)
 		{
-			maxCharCountTerminals = terminals.Keys.Max(terminal => terminal.Length);
+			_charsEnumerator = charsEnumerator;
+			_tokenContentBuilder = new StringBuilder();
 		}
 
-		public static IEnumerable<Token> GetTokens(string expression)
+		public static IEnumerable<Token> Tokenize(IEnumerable<char> chars)
 		{
-			Regex RE = new Regex(@"([\s\" + String.Join(@"\", terminals.Keys) + "])");
-			string[] tokensWithWhiteSpace = RE.Split(expression).ToArray();
+			return new TokenEnumerable(chars);
+		}
 
-			int i = 0;
+		class TokenEnumerable : IEnumerable<Token>
+		{
+			readonly IEnumerable<char> _chars;
 
-			foreach (string token in tokensWithWhiteSpace)
+			public TokenEnumerable(IEnumerable<char> chars)
 			{
-				if (!string.IsNullOrWhiteSpace(token))
-				{
-					if (terminals.ContainsKey(token))
-					{
-						yield return new Token(terminals[token], token, i);
-					}
-					else
-					{
-						string trimmedToken = token.Trim();
-						int index = i + token.IndexOf(trimmedToken, StringComparison.Ordinal);
-						double tmp;
-						if (Double.TryParse(trimmedToken, NumberStyles.Any, CultureInfo.InvariantCulture, out tmp))
-						{
-							yield return new Token(TokenType.Numeric, trimmedToken, index);
-						}
-						else if (Char.IsLetter(trimmedToken[0]) && trimmedToken.All(c => Char.IsLetterOrDigit(c) || c == '_'))
-						{
-							yield return new Token(TokenType.Identifier, trimmedToken, index);
-						}
-						else
-						{
-							yield return new Token(TokenType.Unknown, trimmedToken, index);
-						}
-					}
-				}
-
-				i += token.Length;
+				_chars = chars;
 			}
 
-			yield return new Token(TokenType.Eof, "", i);
-		}
-
-		/*
-		public static IEnumerable<Token> GetTokens(string expression)
-		{
-			Regex RE = new Regex(@"([\s\" + String.Join(@"\", terminals.Keys) + "])");
-			string[] tokensWithWhiteSpace = RE.Split(expression).ToArray();
-
-			int i = 0;
-
-			foreach (string token in tokensWithWhiteSpace)
+			public IEnumerator<Token> GetEnumerator()
 			{
-				if (!string.IsNullOrWhiteSpace(token))
+				using (IEnumerator<char> charEnumerator = _chars.GetEnumerator())
 				{
-					if (terminals.ContainsKey(token))
+					Tokenizer tokenizer = new Tokenizer(charEnumerator);
+
+					foreach (Token token in tokenizer.Scan())
 					{
-						yield return new Token(terminals[token], token, i);
-					}
-					else
-					{
-						string trimmedToken = token.Trim();
-						int index = i + token.IndexOf(trimmedToken, StringComparison.Ordinal);
-						double tmp;
-						if (Double.TryParse(trimmedToken, NumberStyles.Any, CultureInfo.InvariantCulture, out tmp))
-						{
-							yield return new Token(TokenType.Numeric, trimmedToken, index);
-						}
-						else if (Char.IsLetter(trimmedToken[0]) && trimmedToken.All(c => Char.IsLetterOrDigit(c) || c == '_'))
-						{
-							yield return new Token(TokenType.Identifier, trimmedToken, index);
-						}
-						else
-						{
-							yield return new Token(TokenType.Unknown, trimmedToken, index);
-						}
+						yield return token;
 					}
 				}
-
-				i += token.Length;
 			}
 
-			yield return new Token(TokenType.Eof, "", i);
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return GetEnumerator();
+			}
 		}
-		*/
+
+		void Advance()
+		{
+			_index++;
+			if (!_charsEnumerator.MoveNext())
+			{
+				_reachedEndOfFile = true;
+			}
+		}
+
+		bool alreadyPeeked;
+		char? Peek()
+		{
+			if (_reachedEndOfFile)
+			{
+				return null;
+			}
+			else
+			{
+				return _charsEnumerator.Current;
+			}
+		}
+
+		void Consume()
+		{
+			if (Peek().HasValue)
+			{
+				_tokenContentBuilder.Append(Peek().Value);
+			}
+			Advance();
+		}
+
+		Token CreateToken(TokenType tokenType)
+		{
+			string content = _tokenContentBuilder.ToString();
+			_tokenContentBuilder.Clear();
+			int startPosition = _index - content.Length;
+			return new Token(tokenType, content, startPosition);
+		}
+
+		bool IsDigit()
+		{
+			return Peek().HasValue && char.IsDigit(Peek().Value);
+		}
+
+		bool IsEOF()
+		{
+			return _reachedEndOfFile;
+		}
+
+		bool IsIdentifier()
+		{
+			return IsLetterOrDigit() || Peek() == '_';
+		}
+
+		bool IsLetter()
+		{
+			return Peek().HasValue && char.IsLetter(Peek().Value);
+		}
+
+		bool IsLetterOrDigit()
+		{
+			return Peek().HasValue && char.IsLetterOrDigit(Peek().Value);
+		}
+
+		bool IsPunctuation()
+		{
+			return Peek().HasValue && "<>()!^*+-=/,?:".Contains(Peek().Value);
+		}
+
+		bool IsWhiteSpace()
+		{
+			return ((Peek().HasValue && char.IsWhiteSpace(Peek().Value)));
+		}
+
+		IEnumerable<Token> Scan()
+		{
+			Advance();
+
+			while (!IsEOF())
+			{
+				if (IsWhiteSpace())
+				{
+					yield return ScanWhiteSpace();
+				}
+				else if (IsDigit() || Peek() == '.')
+				{
+					yield return ScanNumber();
+				}
+				else if (IsLetter() || Peek() == '_')
+				{
+					yield return ScanIdentifier();
+				}
+				else if (IsPunctuation())
+				{
+					yield return ScanPunctuation();
+				}
+				else
+				{
+					yield return ScanWord();
+				}
+			}
+
+			yield return CreateToken(TokenType.Eof);
+		}
+
+		Token ScanIdentifier()
+		{
+			while (IsIdentifier())
+			{
+				Consume();
+			}
+
+			if (!IsWhiteSpace() && !IsPunctuation() && !IsEOF())
+			{
+				return ScanWord();
+			}
+
+			TokenType keywordTokenType;
+			if (_keywords.TryGetValue(_tokenContentBuilder.ToString(), out keywordTokenType))
+			{
+				return CreateToken(keywordTokenType);
+			}
+
+			return CreateToken(TokenType.Identifier);
+		}
+
+		Token ScanNumber()
+		{
+			while (IsDigit())
+			{
+				Consume();
+			}
+
+			if (Peek() == '.')
+			{
+				Consume();
+
+				bool anyDigits = false;
+
+				while (IsDigit())
+				{
+					Consume();
+					anyDigits = true;
+				}
+
+				if (!anyDigits)
+				{
+					return ScanWord();
+				}
+			}
+
+			if (Peek() == 'e')
+			{
+				Consume();
+
+				if (Peek() == '+' || Peek() == '-')
+				{
+					Consume();
+				}
+
+				while (IsDigit())
+				{
+					Consume();
+				}
+			}
+
+			return CreateToken(TokenType.Numeric);
+		}
+
+		Token ScanPunctuation()
+		{
+			switch (Peek())
+			{
+				case ':':
+					Consume();
+					return CreateToken(TokenType.Colon);
+				case '(':
+					Consume();
+					return CreateToken(TokenType.LeftParenthesis);
+				case ')':
+					Consume();
+					return CreateToken(TokenType.Rpar);
+				case '>':
+					Consume();
+					if (Peek() == '=')
+					{
+						Consume();
+						return CreateToken(TokenType.BiggerOrEqual);
+					}
+					return CreateToken(TokenType.Bigger);
+				case '<':
+					Consume();
+					if (Peek() == '=')
+					{
+						Consume();
+						return CreateToken(TokenType.LessOrEqual);
+					}
+					return CreateToken(TokenType.Smaller);
+				case '+':
+					Consume();
+					return CreateToken(TokenType.Plus);
+				case '-':
+					Consume();
+					return CreateToken(TokenType.Minus);
+				case '=':
+					Consume();
+					if (Peek() == '=')
+					{
+						Consume();
+						return CreateToken(TokenType.Equal);
+					}
+					return CreateToken(TokenType.Assignment);
+				case '!':
+					Consume();
+					if (Peek() == '=')
+					{
+						Consume();
+						return CreateToken(TokenType.NotEqual);
+					}
+					return ScanWord();
+				case '*':
+					Consume();
+					return CreateToken(TokenType.Star);
+				case '/':
+					Consume();
+					return CreateToken(TokenType.Slash);
+				case ',':
+					Consume();
+					return CreateToken(TokenType.Comma);
+				case '^':
+					Consume();
+					return CreateToken(TokenType.Pow);
+				case '?':
+					Consume();
+					return CreateToken(TokenType.QuestionMark);
+				default:
+					return ScanWord();
+			}
+		}
+
+		Token ScanWhiteSpace()
+		{
+			while (IsWhiteSpace())
+			{
+				Consume();
+			}
+
+			return CreateToken(TokenType.WhiteSpace);
+		}
+
+		Token ScanWord()
+		{
+			while (!IsWhiteSpace() && !IsEOF() && !IsPunctuation())
+			{
+				Consume();
+			}
+
+			return CreateToken(TokenType.Unknown);
+		}
 	}
 }

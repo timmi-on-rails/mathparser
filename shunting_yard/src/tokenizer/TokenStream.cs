@@ -6,46 +6,34 @@ namespace MathParser
 	class TokenStream : IDisposable
 	{
 		readonly IEnumerator<Token> _tokenEnumerator;
-		bool alreadyPeeked;
+		bool _isEnumeratorAhead;
 
-		public TokenStream(string input)
+		public TokenStream(IEnumerable<Token> tokens)
 		{
-			_tokenEnumerator = Tokenizer.GetTokens(input).GetEnumerator();
+			_tokenEnumerator = tokens.GetEnumerator();
 		}
-		/*
-		public static IEnumerable<char> ReadCharacters(string filename)
-		{
-			using (var reader = File.OpenText(filename))
-			{
-				int readResult;
-				while ((readResult = reader.Read()) != -1)
-				{
-					yield return (char)readResult;
-				}
-			}
-		}
-		*/
 
 		public Token Consume()
 		{
-			if (alreadyPeeked)
+			if (_isEnumeratorAhead)
 			{
-				alreadyPeeked = false;
-				return _tokenEnumerator.Current;
+				_isEnumeratorAhead = false;
 			}
 			else
 			{
 				_tokenEnumerator.MoveNext();
-				return _tokenEnumerator.Current;
 			}
+
+			return _tokenEnumerator.Current;
 		}
 
-		public Token Consume(TokenType expected)
+		public Token Consume(TokenType expectedTokenType)
 		{
-			Token token = Peek();
-			if (token.TokenType != expected)
+			Token nextToken = Peek();
+
+			if (nextToken.TokenType != expectedTokenType)
 			{
-				throw new ExpectedTokenException(expected, token.Position);
+				throw new ExpectedTokenException(expectedTokenType, nextToken.Position);
 			}
 
 			return Consume();
@@ -53,28 +41,26 @@ namespace MathParser
 
 		public Token Peek()
 		{
-			if (alreadyPeeked)
-			{
-				return _tokenEnumerator.Current;
-			}
-			else
+			if (!_isEnumeratorAhead)
 			{
 				_tokenEnumerator.MoveNext();
-				alreadyPeeked = true;
-				return _tokenEnumerator.Current;
+				_isEnumeratorAhead = true;
 			}
+
+			return _tokenEnumerator.Current;
 		}
 
-		public bool Match(TokenType expected)
+		public bool Match(TokenType expectedTokenType)
 		{
-			Token token = Peek();
-			if (token.TokenType != expected)
+			Token nextToken = Peek();
+			bool isTokenTypeEqual = (nextToken.TokenType == expectedTokenType);
+
+			if (isTokenTypeEqual)
 			{
-				return false;
+				Consume();
 			}
 
-			Consume();
-			return true;
+			return isTokenTypeEqual;
 		}
 
 		public void Dispose()

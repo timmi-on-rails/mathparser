@@ -12,15 +12,15 @@ namespace MathParser
 		{
 			registerPrefixParselet(TokenType.Identifier, new VariableParselet());
 			registerPrefixParselet(TokenType.Numeric, new NumberParselet());
-			registerPrefixParselet(TokenType.Lpar, new GroupParselet());
+			registerPrefixParselet(TokenType.LeftParenthesis, new GroupParselet());
 			registerPrefixParselet(TokenType.Minus, new PrefixOperatorParselet(PrefixExpressionType.Negation, Precedences.PREFIX));
 			registerPrefixParselet(TokenType.Plus, new PrefixOperatorParselet(PrefixExpressionType.Positive, Precedences.PREFIX));
 
-			registerInfixParselet(TokenType.Equal, new AssignParselet());
+			registerInfixParselet(TokenType.Assignment, new AssignParselet());
 			registerInfixParselet(TokenType.Smaller, new ComparisonParselet(ComparisonExpressionType.Less, Precedences.COMPARISON, Associativity.Left));
 			registerInfixParselet(TokenType.Bigger, new ComparisonParselet(ComparisonExpressionType.Bigger, Precedences.COMPARISON, Associativity.Left));
 			registerInfixParselet(TokenType.QuestionMark, new TernaryParselet());
-			registerInfixParselet(TokenType.Lpar, new CallParselet());
+			registerInfixParselet(TokenType.LeftParenthesis, new CallParselet());
 			registerInfixParselet(TokenType.Plus, new BinaryOperatorParselet(BinaryExpressionType.Add, Precedences.SUM, Associativity.Left));
 			registerInfixParselet(TokenType.Minus, new BinaryOperatorParselet(BinaryExpressionType.Sub, Precedences.SUM, Associativity.Left));
 			registerInfixParselet(TokenType.Star, new BinaryOperatorParselet(BinaryExpressionType.Mul, Precedences.PRODUCT, Associativity.Left));

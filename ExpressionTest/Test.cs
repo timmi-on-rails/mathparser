@@ -2,10 +2,6 @@
 
 namespace ExpressionTest
 {
-
-	// Test tokenizer
-	// Test function Manager
-
 	[TestFixture]
 	public class Test
 	{

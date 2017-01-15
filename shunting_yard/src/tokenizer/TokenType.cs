@@ -2,8 +2,10 @@
 {
 	enum TokenType
 	{
+		Assignment,
 		Equal,
-		Lpar,
+		NotEqual,
+		LeftParenthesis,
 		Rpar,
 		Plus,
 		Minus,
@@ -19,6 +21,11 @@
 		Bigger,
 		Comma,
 		Unknown,
-		LessOrEqual
+		LessOrEqual,
+		BiggerOrEqual,
+		WhiteSpace,
+		True,
+		False,
+		Ans
 	}
 }
