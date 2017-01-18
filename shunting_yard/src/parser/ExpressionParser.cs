@@ -17,8 +17,8 @@ namespace MathParser
 			registerPrefixParselet(TokenType.Plus, new PrefixOperatorParselet(PrefixExpressionType.Positive, Precedences.PREFIX));
 
 			registerInfixParselet(TokenType.Assignment, new AssignParselet());
-			registerInfixParselet(TokenType.Smaller, new ComparisonParselet(ComparisonExpressionType.Less, Precedences.COMPARISON, Associativity.Left));
-			registerInfixParselet(TokenType.Bigger, new ComparisonParselet(ComparisonExpressionType.Bigger, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.Less, new ComparisonParselet(ComparisonExpressionType.Less, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.Greater, new ComparisonParselet(ComparisonExpressionType.Bigger, Precedences.COMPARISON, Associativity.Left));
 			registerInfixParselet(TokenType.QuestionMark, new TernaryParselet());
 			registerInfixParselet(TokenType.LeftParenthesis, new CallParselet());
 			registerInfixParselet(TokenType.Plus, new BinaryOperatorParselet(BinaryExpressionType.Add, Precedences.SUM, Associativity.Left));

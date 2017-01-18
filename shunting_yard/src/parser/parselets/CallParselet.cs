@@ -16,14 +16,14 @@ namespace MathParser
 
 			List<IExpression> arguments = new List<IExpression>();
 
-			if (!tokenStream.Match(TokenType.Rpar))
+			if (!tokenStream.Match(TokenType.RightParenthesis))
 			{
 				do
 				{
 					arguments.Add(parseExpression(tokenStream));
 				} while (tokenStream.Match(TokenType.Comma));
 
-				tokenStream.Consume(TokenType.Rpar);
+				tokenStream.Consume(TokenType.RightParenthesis);
 			}
 
 			return new CallExpression(variableExpression.VariableName, arguments);

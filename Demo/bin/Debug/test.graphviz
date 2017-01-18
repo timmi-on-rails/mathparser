@@ -1,5 +1,0 @@
-digraph G {
-node0 [ label = "4" ];
-node1 [ label = "f" ];
-node1 -> node0;
-}

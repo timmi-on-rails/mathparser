@@ -1,8 +1,0 @@
-/home/tom/Quelltexte/MathExpressionParser/Demo/obj/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Release/Demo.exe.mdb
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Release/Demo.exe
-/home/tom/Quelltexte/MathExpressionParser/Demo/obj/Release/Demo.exe
-/home/tom/Quelltexte/MathExpressionParser/Demo/obj/Release/Demo.exe.mdb
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Release/NCalc.dll
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Release/shunting_yard.dll
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Release/shunting_yard.dll.mdb

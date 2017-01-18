@@ -1,6 +1,0 @@
-/home/tom/Quelltexte/MathExpressionParser/Demo/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/Demo.exe.mdb
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/Demo.exe
-/home/tom/Quelltexte/MathExpressionParser/Demo/obj/Debug/Demo.exe
-/home/tom/Quelltexte/MathExpressionParser/Demo/obj/Debug/Demo.exe.mdb
-/home/tom/Quelltexte/MathExpressionParser/Demo/bin/Debug/shunting_yard.dll

@@ -6,7 +6,7 @@
 		Equal,
 		NotEqual,
 		LeftParenthesis,
-		Rpar,
+		RightParenthesis,
 		Plus,
 		Minus,
 		Star,
@@ -16,16 +16,15 @@
 		Numeric,
 		QuestionMark,
 		Colon,
-		Eof,
-		Smaller,
-		Bigger,
+		EndOfFile,
+		Less,
+		Greater,
 		Comma,
 		Unknown,
 		LessOrEqual,
-		BiggerOrEqual,
+		GreaterOrEqual,
 		WhiteSpace,
 		True,
-		False,
-		Ans
+		False
 	}
 }

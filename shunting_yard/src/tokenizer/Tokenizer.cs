@@ -10,8 +10,7 @@ namespace MathParser
 		static readonly Dictionary<string, TokenType> _keywords = new Dictionary<string, TokenType>
 		{
 			{ "true", TokenType.True },
-			{ "false", TokenType.False },
-			{ "ans", TokenType.Ans }
+			{ "false", TokenType.False }
 		};
 
 		readonly StringBuilder _tokenContentBuilder;
@@ -160,7 +159,7 @@ namespace MathParser
 				}
 			}
 
-			yield return CreateToken(TokenType.Eof);
+			yield return CreateToken(TokenType.EndOfFile);
 		}
 
 		Token ScanIdentifier()
@@ -239,15 +238,15 @@ namespace MathParser
 					return CreateToken(TokenType.LeftParenthesis);
 				case ')':
 					Consume();
-					return CreateToken(TokenType.Rpar);
+					return CreateToken(TokenType.RightParenthesis);
 				case '>':
 					Consume();
 					if (Peek() == '=')
 					{
 						Consume();
-						return CreateToken(TokenType.BiggerOrEqual);
+						return CreateToken(TokenType.GreaterOrEqual);
 					}
-					return CreateToken(TokenType.Bigger);
+					return CreateToken(TokenType.Greater);
 				case '<':
 					Consume();
 					if (Peek() == '=')
@@ -255,7 +254,7 @@ namespace MathParser
 						Consume();
 						return CreateToken(TokenType.LessOrEqual);
 					}
-					return CreateToken(TokenType.Smaller);
+					return CreateToken(TokenType.Less);
 				case '+':
 					Consume();
 					return CreateToken(TokenType.Plus);

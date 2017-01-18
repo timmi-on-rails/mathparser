@@ -15,7 +15,7 @@ namespace MathParser
 				ExpressionParser expressionParser = new ExpressionParser();
 				IExpression rootExpression = expressionParser.Parse(tokenStream);
 
-				tokenStream.Consume(TokenType.Eof);
+				tokenStream.Consume(TokenType.EndOfFile);
 
 				return new ExpressionTree(rootExpression);
 			}

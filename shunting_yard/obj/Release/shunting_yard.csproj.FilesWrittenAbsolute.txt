@@ -1,5 +1,0 @@
-/home/tom/Quelltexte/MathExpressionParser/shunting_yard/obj/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/tom/Quelltexte/MathExpressionParser/shunting_yard/bin/Release/shunting_yard.dll.mdb
-/home/tom/Quelltexte/MathExpressionParser/shunting_yard/bin/Release/shunting_yard.dll
-/home/tom/Quelltexte/MathExpressionParser/shunting_yard/obj/Release/shunting_yard.dll
-/home/tom/Quelltexte/MathExpressionParser/shunting_yard/obj/Release/shunting_yard.dll.mdb
