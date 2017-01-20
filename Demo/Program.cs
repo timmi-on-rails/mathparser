@@ -5,14 +5,24 @@ using MathParser;
 
 namespace Demo
 {
+	public delegate void Funny();
 	class MainClass
 	{
+		public static void digest(Object del)
+		{ }
+
+
+
+		public static void Test()
+		{
+		}
 		public static void Main(string[] args)
 		{
-
-
 			string line;
 			MathParser.MathParser mathParser = new MathParser.MathParser();
+
+			SymbolManager symbolManager = new SymbolManager();
+			symbolManager.SetTrigonometrySymbols();
 
 			while ((line = Console.ReadLine()) != "exit")
 			{
@@ -32,9 +42,8 @@ namespace Demo
 					{
 						string detail = e.ToDebug();
 						Console.Write(detail);
-						File.WriteAllText("test.graphviz", e.ToGraphviz());
-						Process.Start("/usr/bin/dot", "-Tgif -otest.gif test.graphviz");
-						object d = e.Evaluate();
+
+						object d = e.Evaluate(symbolManager);
 						Console.WriteLine(" = " + d);
 					}
 					catch (Exception e2)

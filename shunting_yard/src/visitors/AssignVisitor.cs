@@ -1,35 +1,33 @@
 ﻿using System;
 
 namespace MathParser
-{/*
-	class AssignVisitor : AbstractExpressionVisitor
+{
+	class AssignVisitor : BottomUpExpressionVisitor
 	{
-		FunctionsManager functionsManager;
-		VariablesManager variablesManager;
+		readonly ISymbolManager _symbolManager;
 
-		public AssignVisitor(FunctionsManager functionsManager, VariablesManager variablesManager)
+		public AssignVisitor(ISymbolManager symbolManager)
 		{
-			this.functionsManager = functionsManager;
-			this.variablesManager = variablesManager;
+			_symbolManager = symbolManager;
 		}
 
 		public override void Visit(VariableAssignmentExpression variableAssignmentExpression)
 		{
-			BottomUpEvaluationVisitor evaluationVisitor = new BottomUpEvaluationVisitor(functionsManager, variablesManager);
+			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(_symbolManager);
 			variableAssignmentExpression.Expression.Accept(evaluationVisitor);
 
-			variablesManager.Set(variableAssignmentExpression.VariableName, evaluationVisitor.GetResult());
+			_symbolManager.Set(variableAssignmentExpression.VariableName, evaluationVisitor.GetResult());
 		}
 
 		public override void Visit(FunctionAssignmentExpression functionAssignmentExpression)
 		{
-			functionsManager.Define(functionAssignmentExpression.FunctionName,
+			_symbolManager.SetFunction(functionAssignmentExpression.FunctionName,
 									(args) =>
 			{
-				FunctionExpressionVisitor fExpEvaluationVisitor = new FunctionExpressionVisitor(functionAssignmentExpression.ArgumentNames, args, functionsManager, variablesManager);
+				FunctionExpressionVisitor fExpEvaluationVisitor = new FunctionExpressionVisitor(functionAssignmentExpression.ArgumentNames, args, _symbolManager);
 				functionAssignmentExpression.Expression.Accept(fExpEvaluationVisitor);
 				return fExpEvaluationVisitor.GetResult();
 			});
 		}
-	}*/
+	}
 }

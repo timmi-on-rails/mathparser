@@ -45,8 +45,6 @@
     <Compile Include="src\expressions\CallExpression.cs" />
     <Compile Include="src\expressions\VariableExpression.cs" />
     <Compile Include="src\expressions\VariableAssignmentExpression.cs" />
-    <Compile Include="src\parser\VariablesManager.cs" />
-    <Compile Include="src\parser\FunctionsManager.cs" />
     <Compile Include="src\visitors\IExpressionVisitor.cs" />
     <Compile Include="src\expressions\BinaryExpressionType.cs" />
     <Compile Include="src\visitors\EvaluationVisitor.cs" />
@@ -87,11 +85,12 @@
     <Compile Include="src\parser\parselets\AssignParselet.cs" />
     <Compile Include="src\parser\exceptions\UnknownVariableException.cs" />
     <Compile Include="src\expressions\GroupExpression.cs" />
-    <Compile Include="src\parser\IVariableProvider.cs" />
     <Compile Include="src\visitors\EvaluationException.cs" />
-    <Compile Include="src\parser\IFunctionProvider.cs" />
     <Compile Include="src\visitors\Traversal.cs" />
     <Compile Include="src\tokenizer\Tokenizer.cs" />
+    <Compile Include="src\symbol_manager\SymbolManager.cs" />
+    <Compile Include="src\symbol_manager\ISymbolManager.cs" />
+    <Compile Include="src\symbol_manager\TrigonometrySymbols.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -109,8 +108,6 @@
     <Folder Include="src\visitors\" />
     <Folder Include="src\parser\exceptions\" />
     <Folder Include="src\parser\parselets\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
+    <Folder Include="src\symbol_manager\" />
   </ItemGroup>
 </Project>

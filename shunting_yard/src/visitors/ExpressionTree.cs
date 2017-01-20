@@ -11,12 +11,12 @@
 
 		public object Evaluate()
 		{
-			return Evaluate(null, null);
+			return Evaluate(null);
 		}
 
-		public object Evaluate(IVariableProvider variableProvider, IFunctionProvider functionProvider)
+		public object Evaluate(ISymbolManager symbolProvider)
 		{
-			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(functionProvider, variableProvider);
+			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(symbolProvider);
 			_rootExpression.Accept(evaluationVisitor);
 			return evaluationVisitor.GetResult();
 		}

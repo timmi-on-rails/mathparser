@@ -6,16 +6,14 @@ namespace MathParser
 {
 	class EvaluationVisitor : IExpressionVisitor
 	{
-		readonly IFunctionProvider _functionProvider;
-		readonly IVariableProvider _variableProvider;
+		readonly ISymbolManager _symbolProvider;
 		protected readonly Stack<object> _evaluationStack;
 
 		public Traversal Traversal { get { return Traversal.None; } }
 
-		public EvaluationVisitor(IFunctionProvider functionProvider, IVariableProvider variableProvider)
+		public EvaluationVisitor(ISymbolManager symbolProvider)
 		{
-			_functionProvider = functionProvider;
-			_variableProvider = variableProvider;
+			_symbolProvider = symbolProvider;
 			_evaluationStack = new Stack<object>();
 		}
 
@@ -123,7 +121,7 @@ namespace MathParser
 
 			int numArguments = functionExpression.Arguments.Count();
 
-			if (_functionProvider.IsDefined(functionExpression.FunctionName, numArguments))
+			if (_symbolProvider.IsSet(functionExpression.FunctionName))
 			{
 				List<object> arguments = new List<object>();
 
@@ -133,7 +131,7 @@ namespace MathParser
 				}
 				arguments.Reverse();
 
-				object result = _functionProvider.Call(functionExpression.FunctionName, arguments.ToArray());
+				object result = ((Function)_symbolProvider.Get(functionExpression.FunctionName))(arguments.ToArray());
 				_evaluationStack.Push(result);
 			}
 			else
@@ -204,9 +202,9 @@ namespace MathParser
 
 		public virtual void Visit(VariableExpression variableExpression)
 		{
-			if (_variableProvider.IsSet(variableExpression.VariableName))
+			if (_symbolProvider.IsSet(variableExpression.VariableName))
 			{
-				_evaluationStack.Push(_variableProvider.Get(variableExpression.VariableName));
+				_evaluationStack.Push(_symbolProvider.Get(variableExpression.VariableName));
 			}
 			else
 			{
