@@ -26,7 +26,6 @@ namespace MathParser
 			registerInfixParselet(TokenType.Plus, new BinaryOperatorParselet(BinaryExpressionType.Addition, Precedences.SUM, Associativity.Left));
 			registerInfixParselet(TokenType.Minus, new BinaryOperatorParselet(BinaryExpressionType.Substraction, Precedences.SUM, Associativity.Left));
 			registerInfixParselet(TokenType.Star, new BinaryOperatorParselet(BinaryExpressionType.Multiplication, Precedences.PRODUCT, Associativity.Left));
-			registerInfixParselet(TokenType.Identifier, new BinaryOperatorParselet(BinaryExpressionType.Multiplication, Precedences.PRODUCT, Associativity.Left));
 			registerInfixParselet(TokenType.Slash, new BinaryOperatorParselet(BinaryExpressionType.Division, Precedences.PRODUCT, Associativity.Left));
 			registerInfixParselet(TokenType.Pow, new BinaryOperatorParselet(BinaryExpressionType.Power, Precedences.EXPONENT, Associativity.Right));
 			registerInfixParselet(TokenType.Percent, new BinaryOperatorParselet(BinaryExpressionType.Modulo, Precedences.PRODUCT, Associativity.Left));
