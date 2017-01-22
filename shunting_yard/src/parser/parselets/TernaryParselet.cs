@@ -6,7 +6,7 @@
 		{
 			IExpression trueExpression = parseExpression(tokenStream);
 			tokenStream.Consume(TokenType.Colon);
-			IExpression falseExpression = parseExpression(tokenStream, Precedences.CONDITIONAL + Associativity.Right.ToPrecedence());
+			IExpression falseExpression = parseExpression(tokenStream, Precedences.CONDITIONAL + Associativity.Right.ToPrecedenceIncrement());
 			return new TernaryExpression(leftExpression, trueExpression, falseExpression);
 		}
 

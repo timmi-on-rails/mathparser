@@ -48,20 +48,23 @@ namespace MathParser
 
 				switch (binaryExpression.BinaryExpressionType)
 				{
-					case BinaryExpressionType.Add:
+					case BinaryExpressionType.Addition:
 						result = leftValue + rightValue;
 						break;
-					case BinaryExpressionType.Sub:
+					case BinaryExpressionType.Substraction:
 						result = leftValue - rightValue;
 						break;
-					case BinaryExpressionType.Mul:
+					case BinaryExpressionType.Multiplication:
 						result = leftValue * rightValue;
 						break;
-					case BinaryExpressionType.Div:
+					case BinaryExpressionType.Division:
 						result = leftValue / rightValue;
 						break;
-					case BinaryExpressionType.Pow:
+					case BinaryExpressionType.Power:
 						result = Math.Pow(leftValue, rightValue);
+						break;
+					case BinaryExpressionType.Modulo:
+						result = leftValue % rightValue;
 						break;
 					default:
 						string message = String.Format("Unhandled binary operation {0}.", binaryExpression.BinaryExpressionType);

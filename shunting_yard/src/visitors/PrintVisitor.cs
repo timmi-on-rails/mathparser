@@ -26,23 +26,26 @@ namespace MathParser
 			string infix;
 			switch (binaryExpression.BinaryExpressionType)
 			{
-				case BinaryExpressionType.Add:
+				case BinaryExpressionType.Addition:
 					infix = "+";
 					break;
-				case BinaryExpressionType.Div:
+				case BinaryExpressionType.Division:
 					infix = "/";
 					break;
-				case BinaryExpressionType.Mul:
+				case BinaryExpressionType.Multiplication:
 					infix = "*";
 					break;
-				case BinaryExpressionType.Pow:
+				case BinaryExpressionType.Power:
 					infix = "^";
 					break;
-				case BinaryExpressionType.Sub:
+				case BinaryExpressionType.Substraction:
 					infix = "-";
 					break;
+				case BinaryExpressionType.Modulo:
+					infix = "%";
+					break;
 				default:
-					throw new ArgumentException("unhandled infix expression type");
+					throw new ArgumentException("unhandled binary expression type");
 			}
 
 			string right = _stack.Pop();

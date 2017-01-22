@@ -25,6 +25,7 @@
 		GreaterOrEqual,
 		WhiteSpace,
 		True,
-		False
+		False,
+		Percent
 	}
 }

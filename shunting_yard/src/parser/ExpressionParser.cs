@@ -12,6 +12,8 @@ namespace MathParser
 		{
 			registerPrefixParselet(TokenType.Identifier, new VariableParselet());
 			registerPrefixParselet(TokenType.Numeric, new NumberParselet());
+			registerPrefixParselet(TokenType.False, new FixValueParselet(Value.Boolean(false)));
+			registerPrefixParselet(TokenType.True, new FixValueParselet(Value.Boolean(true)));
 			registerPrefixParselet(TokenType.LeftParenthesis, new GroupParselet());
 			registerPrefixParselet(TokenType.Minus, new PrefixOperatorParselet(PrefixExpressionType.Negation, Precedences.PREFIX));
 			registerPrefixParselet(TokenType.Plus, new PrefixOperatorParselet(PrefixExpressionType.Positive, Precedences.PREFIX));
@@ -21,11 +23,13 @@ namespace MathParser
 			registerInfixParselet(TokenType.Greater, new ComparisonParselet(ComparisonExpressionType.Bigger, Precedences.COMPARISON, Associativity.Left));
 			registerInfixParselet(TokenType.QuestionMark, new TernaryParselet());
 			registerInfixParselet(TokenType.LeftParenthesis, new CallParselet());
-			registerInfixParselet(TokenType.Plus, new BinaryOperatorParselet(BinaryExpressionType.Add, Precedences.SUM, Associativity.Left));
-			registerInfixParselet(TokenType.Minus, new BinaryOperatorParselet(BinaryExpressionType.Sub, Precedences.SUM, Associativity.Left));
-			registerInfixParselet(TokenType.Star, new BinaryOperatorParselet(BinaryExpressionType.Mul, Precedences.PRODUCT, Associativity.Left));
-			registerInfixParselet(TokenType.Slash, new BinaryOperatorParselet(BinaryExpressionType.Div, Precedences.PRODUCT, Associativity.Left));
-			registerInfixParselet(TokenType.Pow, new BinaryOperatorParselet(BinaryExpressionType.Pow, Precedences.EXPONENT, Associativity.Right));
+			registerInfixParselet(TokenType.Plus, new BinaryOperatorParselet(BinaryExpressionType.Addition, Precedences.SUM, Associativity.Left));
+			registerInfixParselet(TokenType.Minus, new BinaryOperatorParselet(BinaryExpressionType.Substraction, Precedences.SUM, Associativity.Left));
+			registerInfixParselet(TokenType.Star, new BinaryOperatorParselet(BinaryExpressionType.Multiplication, Precedences.PRODUCT, Associativity.Left));
+			registerInfixParselet(TokenType.Identifier, new BinaryOperatorParselet(BinaryExpressionType.Multiplication, Precedences.PRODUCT, Associativity.Left));
+			registerInfixParselet(TokenType.Slash, new BinaryOperatorParselet(BinaryExpressionType.Division, Precedences.PRODUCT, Associativity.Left));
+			registerInfixParselet(TokenType.Pow, new BinaryOperatorParselet(BinaryExpressionType.Power, Precedences.EXPONENT, Associativity.Right));
+			registerInfixParselet(TokenType.Percent, new BinaryOperatorParselet(BinaryExpressionType.Modulo, Precedences.PRODUCT, Associativity.Left));
 		}
 
 		static void registerPrefixParselet(TokenType tokenType, IPrefixParselet prefixParselet)

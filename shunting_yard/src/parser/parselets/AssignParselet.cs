@@ -7,7 +7,7 @@ namespace MathParser
 	{
 		public IExpression Parse(ParseExpressionDelegate parseExpression, TokenStream tokenStream, IExpression leftExpression)
 		{
-			IExpression rightExpression = parseExpression(tokenStream, Precedences.ASSIGNMENT + Associativity.Right.ToPrecedence());
+			IExpression rightExpression = parseExpression(tokenStream, Precedences.ASSIGNMENT + Associativity.Right.ToPrecedenceIncrement());
 
 			if (leftExpression is VariableExpression)
 			{

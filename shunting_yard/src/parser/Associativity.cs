@@ -15,7 +15,7 @@ namespace MathParser
 		/// is done by parsing the right hand side expression with a lower precedence.
 		/// </summary>
 		/// <returns>The precedence increment.</returns>
-		public static int ToPrecedence(this Associativity associativity)
+		public static int ToPrecedenceIncrement(this Associativity associativity)
 		{
 			switch (associativity)
 			{

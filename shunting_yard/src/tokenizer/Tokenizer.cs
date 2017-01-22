@@ -66,7 +66,6 @@ namespace MathParser
 			}
 		}
 
-		bool alreadyPeeked;
 		char? Peek()
 		{
 			if (_reachedEndOfFile)
@@ -123,7 +122,7 @@ namespace MathParser
 
 		bool IsPunctuation()
 		{
-			return Peek().HasValue && "<>()!^*+-=/,?:".Contains(Peek().Value);
+			return Peek().HasValue && "<>()!^*+-=/%,?:".Contains(Peek().Value);
 		}
 
 		bool IsWhiteSpace()
@@ -283,6 +282,9 @@ namespace MathParser
 				case '/':
 					Consume();
 					return CreateToken(TokenType.Slash);
+				case '%':
+					Consume();
+					return CreateToken(TokenType.Percent);
 				case ',':
 					Consume();
 					return CreateToken(TokenType.Comma);

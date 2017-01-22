@@ -2,10 +2,11 @@
 {
 	enum BinaryExpressionType
 	{
-		Add,
-		Sub,
-		Mul,
-		Div,
-		Pow
+		Addition,
+		Substraction,
+		Multiplication,
+		Division,
+		Power,
+		Modulo
 	}
 }

@@ -14,7 +14,7 @@
 
 		public IExpression Parse(ParseExpressionDelegate parseExpression, TokenStream tokenStream, IExpression leftExpression)
 		{
-			IExpression rightExpression = parseExpression(tokenStream, Precedence + _associativity.ToPrecedence());
+			IExpression rightExpression = parseExpression(tokenStream, Precedence + _associativity.ToPrecedenceIncrement());
 			return new ComparisonExpression(_comparisonExpressionType, leftExpression, rightExpression);
 		}
 
