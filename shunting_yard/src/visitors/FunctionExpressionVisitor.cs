@@ -5,10 +5,10 @@ namespace MathParser
 {
 	class FunctionExpressionVisitor : EvaluationVisitor
 	{
-		IEnumerable<string> argNames;
+		IEnumerable<Identifier> argNames;
 		Value[] arguments;
 
-		public FunctionExpressionVisitor(IEnumerable<string> argNames, Value[] arguments, ISymbolManager symbolProvider) : base(symbolProvider)
+		public FunctionExpressionVisitor(IEnumerable<Identifier> argNames, Value[] arguments, ISymbolManager symbolProvider) : base(symbolProvider)
 		{
 			this.argNames = argNames;
 			this.arguments = arguments;
@@ -16,9 +16,9 @@ namespace MathParser
 
 		public override void Visit(VariableExpression variableExpression)
 		{
-			if (argNames.Contains(variableExpression.VariableName))
+			if (argNames.Contains(variableExpression.Identifier))
 			{
-				int idx = argNames.ToList().IndexOf(variableExpression.VariableName);
+				int idx = argNames.ToList().IndexOf(variableExpression.Identifier);
 				_evaluationStack.Push(arguments[idx]);
 			}
 			else

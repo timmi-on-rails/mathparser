@@ -4,21 +4,21 @@ namespace MathParser
 {
 	public class SymbolManager : ISymbolManager
 	{
-		readonly Dictionary<string, Value> _symbols = new Dictionary<string, Value>();
+		readonly Dictionary<Identifier, Value> _symbols = new Dictionary<Identifier, Value>();
 
-		public bool IsSet(string symbolName)
+		public bool IsSet(Identifier identifier)
 		{
-			return _symbols.ContainsKey(symbolName);
+			return _symbols.ContainsKey(identifier);
 		}
 
-		public Value Get(string symbolName)
+		public Value Get(Identifier identifier)
 		{
-			return _symbols[symbolName];
+			return _symbols[identifier];
 		}
 
-		public void Set(string symbolName, Value value)
+		public void Set(Identifier identifier, Value value)
 		{
-			_symbols[symbolName] = value;
+			_symbols[identifier] = value;
 		}
 	}
 }

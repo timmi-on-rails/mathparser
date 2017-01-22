@@ -92,6 +92,7 @@
     <Compile Include="src\symbol_manager\ISymbolManager.cs" />
     <Compile Include="src\symbol_manager\TrigonometrySymbols.cs" />
     <Compile Include="src\expressions\Value.cs" />
+    <Compile Include="src\tokenizer\Identifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

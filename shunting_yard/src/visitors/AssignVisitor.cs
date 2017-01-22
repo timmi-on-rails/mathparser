@@ -16,18 +16,22 @@ namespace MathParser
 			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(_symbolManager);
 			variableAssignmentExpression.Expression.Accept(evaluationVisitor);
 
-			_symbolManager.Set(variableAssignmentExpression.VariableName, evaluationVisitor.GetResult());
+			_symbolManager.Set(variableAssignmentExpression.Identifier, evaluationVisitor.GetResult());
 		}
 
 		public override void Visit(FunctionAssignmentExpression functionAssignmentExpression)
 		{
-			_symbolManager.Set(functionAssignmentExpression.FunctionName, Value.Function(
-									(args) =>
+			_symbolManager.Set(functionAssignmentExpression.FunctionName, GetFunction(functionAssignmentExpression, _symbolManager));
+		}
+
+		public static Value GetFunction(FunctionAssignmentExpression functionAssignmentExpression, ISymbolManager symbolManager)
+		{
+			return Value.Function((args) =>
 			{
-				FunctionExpressionVisitor fExpEvaluationVisitor = new FunctionExpressionVisitor(functionAssignmentExpression.ArgumentNames, args, _symbolManager);
+				FunctionExpressionVisitor fExpEvaluationVisitor = new FunctionExpressionVisitor(functionAssignmentExpression.ArgumentNames, args, symbolManager);
 				functionAssignmentExpression.Expression.Accept(fExpEvaluationVisitor);
 				return fExpEvaluationVisitor.GetResult();
-			}));
+			});
 		}
 	}
 }

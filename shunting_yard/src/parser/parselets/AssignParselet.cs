@@ -11,8 +11,8 @@ namespace MathParser
 
 			if (leftExpression is VariableExpression)
 			{
-				string name = ((VariableExpression)leftExpression).VariableName;
-				return new VariableAssignmentExpression(name, rightExpression);
+				Identifier identifier = ((VariableExpression)leftExpression).Identifier;
+				return new VariableAssignmentExpression(identifier, rightExpression);
 			}
 			else if (leftExpression is CallExpression)
 			{
@@ -22,7 +22,7 @@ namespace MathParser
 
 				if (arguments.All(arg => arg != null))
 				{
-					return new FunctionAssignmentExpression(callExpression.FunctionName, arguments.Select(argument => argument.VariableName), rightExpression);
+					return new FunctionAssignmentExpression(callExpression.FunctionName, arguments.Select(argument => argument.Identifier), rightExpression);
 				}
 				else
 				{

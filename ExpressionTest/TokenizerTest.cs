@@ -75,6 +75,11 @@ namespace ExpressionTest
 				Token(TokenType.Identifier, "y", 4),
 				Token(TokenType.EndOfFile, "", 5));
 
+			AssertTokensMatch("1<=2",
+				Token(TokenType.Numeric, "1", 0),
+				Token(TokenType.LessOrEqual, "<=", 1),
+				Token(TokenType.Numeric, "2", 3),
+				Token(TokenType.EndOfFile, "", 4));
 		}
 
 		Token Token(TokenType tokenType, string value, int position)

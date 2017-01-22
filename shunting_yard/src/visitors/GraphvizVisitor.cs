@@ -38,7 +38,7 @@ namespace MathParser
 
 		public override void Visit(VariableExpression variableExpression)
 		{
-			consume(variableExpression.VariableName, 0);
+			consume(variableExpression.Identifier, 0);
 		}
 
 		public override void Visit(PrefixExpression prefixExpression)

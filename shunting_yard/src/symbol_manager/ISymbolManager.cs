@@ -1,28 +1,32 @@
 ﻿namespace MathParser
 {
-	// TODO class for identifiers?
 	public interface ISymbolManager
 	{
-		bool IsSet(string symbolName);
-		Value Get(string symbolName);
-		void Set(string symbolName, Value value);
+		bool IsSet(Identifier identifier);
+		Value Get(Identifier identifier);
+		void Set(Identifier identifier, Value value);
 	}
 
 	public static class SymbolManagerExtensions
 	{
-		public static void SetInteger(this ISymbolManager symbolManager, string symbolName, long l)
+		public static void SetInteger(this ISymbolManager symbolManager, Identifier identifier, long l)
 		{
-			symbolManager.Set(symbolName, Value.Integer(l));
+			symbolManager.Set(identifier, Value.Integer(l));
 		}
 
-		public static void SetFloatingPointNumber(this ISymbolManager symbolManager, string symbolName, double d)
+		public static void SetFloatingPointNumber(this ISymbolManager symbolManager, Identifier identifier, double d)
 		{
-			symbolManager.Set(symbolName, Value.FloatingPointNumber(d));
+			symbolManager.Set(identifier, Value.FloatingPointNumber(d));
 		}
 
-		public static void SetFunction(this ISymbolManager symbolManager, string symbolName, Function function)
+		public static void SetBoolean(this ISymbolManager symbolManager, Identifier identifier, bool b)
 		{
-			symbolManager.Set(symbolName, Value.Function(function));
+			symbolManager.Set(identifier, Value.Boolean(b));
+		}
+
+		public static void SetFunction(this ISymbolManager symbolManager, Identifier identifier, Function function)
+		{
+			symbolManager.Set(identifier, Value.Function(function));
 		}
 
 	}

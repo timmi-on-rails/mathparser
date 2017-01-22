@@ -6,14 +6,14 @@ namespace MathParser
 {
 	class EvaluationVisitor : IExpressionVisitor
 	{
-		readonly ISymbolManager _symbolProvider;
+		readonly ISymbolManager _symbolManager;
 		protected readonly Stack<Value> _evaluationStack;
 
 		public Traversal Traversal { get { return Traversal.None; } }
 
 		public EvaluationVisitor(ISymbolManager symbolProvider)
 		{
-			_symbolProvider = symbolProvider;
+			_symbolManager = symbolProvider;
 			_evaluationStack = new Stack<Value>();
 		}
 
@@ -124,7 +124,7 @@ namespace MathParser
 
 			int numArguments = functionExpression.Arguments.Count();
 
-			if (_symbolProvider.IsSet(functionExpression.FunctionName))
+			if (_symbolManager.IsSet(functionExpression.FunctionName))
 			{
 				List<Value> arguments = new List<Value>();
 
@@ -134,7 +134,7 @@ namespace MathParser
 				}
 				arguments.Reverse();
 
-				Value result = _symbolProvider.Get(functionExpression.FunctionName).ToFunction()(arguments.ToArray());
+				Value result = _symbolManager.Get(functionExpression.FunctionName).ToFunction()(arguments.ToArray());
 				_evaluationStack.Push(result);
 			}
 			else
@@ -207,13 +207,13 @@ namespace MathParser
 
 		public virtual void Visit(VariableExpression variableExpression)
 		{
-			if (_symbolProvider.IsSet(variableExpression.VariableName))
+			if (_symbolManager.IsSet(variableExpression.Identifier))
 			{
-				_evaluationStack.Push(_symbolProvider.Get(variableExpression.VariableName));
+				_evaluationStack.Push(_symbolManager.Get(variableExpression.Identifier));
 			}
 			else
 			{
-				throw new EvaluationException("Unknown variable " + variableExpression.VariableName + ".");
+				throw new EvaluationException("Unknown variable " + variableExpression.Identifier + ".");
 			}
 		}
 
@@ -234,7 +234,8 @@ namespace MathParser
 
 		public void Visit(FunctionAssignmentExpression functionAssignmentExpression)
 		{
-			throw new NotImplementedException();
+			Value value = AssignVisitor.GetFunction(functionAssignmentExpression, _symbolManager);
+			_evaluationStack.Push(value);
 		}
 	}
 }

@@ -5,13 +5,13 @@ namespace MathParser
 {
 	class FunctionAssignmentExpression : IExpression
 	{
-		public IExpression Expression { get; }
-
 		public string FunctionName { get; }
 
-		public IEnumerable<string> ArgumentNames { get; }
+		public IEnumerable<Identifier> ArgumentNames { get; }
 
-		public FunctionAssignmentExpression(string functionName, IEnumerable<string> arguments, IExpression expression)
+		public IExpression Expression { get; }
+
+		public FunctionAssignmentExpression(string functionName, IEnumerable<Identifier> arguments, IExpression expression)
 		{
 			FunctionName = functionName;
 			Expression = expression;

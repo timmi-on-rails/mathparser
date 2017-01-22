@@ -2,11 +2,11 @@
 {
 	class VariableExpression : IExpression
 	{
-		public string VariableName { get; }
+		public Identifier Identifier { get; }
 
-		public VariableExpression(string variableName)
+		public VariableExpression(Identifier identifier)
 		{
-			VariableName = variableName;
+			Identifier = identifier;
 		}
 
 		public void Accept(IExpressionVisitor visitor)

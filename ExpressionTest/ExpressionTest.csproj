@@ -41,6 +41,7 @@
     <Compile Include="TestFunctions.cs" />
     <Compile Include="TestParser.cs" />
     <Compile Include="TestValueClass.cs" />
+    <Compile Include="TestIdentifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

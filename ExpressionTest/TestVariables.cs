@@ -23,8 +23,6 @@ namespace ExpressionTest
 		{
 			"1<2 ? 5 : 3".ShouldEvaluateTo(5);
 			"2<1 ? 5 : 1<2 ? 22 : 20".ShouldEvaluateTo(22);
-
-
 		}
 	}
 }

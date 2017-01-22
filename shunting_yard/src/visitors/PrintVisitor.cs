@@ -6,7 +6,20 @@ namespace MathParser
 {
 	class PrintVisitor : BottomUpExpressionVisitor
 	{
-		readonly Stack<string> _returnStack = new Stack<string>();
+		readonly Stack<string> _stack = new Stack<string>();
+
+		public string GetResult()
+		{
+			if (_stack.Count == 1)
+			{
+				return _stack.Pop();
+			}
+			else
+			{
+				string message = String.Format("Stack contains {0} values. It should contain exactly one value.", _stack.Count);
+				throw new EvaluationException(message);
+			}
+		}
 
 		public override void Visit(BinaryExpression binaryExpression)
 		{
@@ -32,16 +45,16 @@ namespace MathParser
 					throw new ArgumentException("unhandled infix expression type");
 			}
 
-			string right = _returnStack.Pop();
-			string left = _returnStack.Pop();
+			string right = _stack.Pop();
+			string left = _stack.Pop();
 
 			string output = String.Format("({0}{1}{2})", left, infix, right);
-			_returnStack.Push(output);
+			_stack.Push(output);
 		}
 
 		public override void Visit(ValueExpression valueExpression)
 		{
-			_returnStack.Push(valueExpression.Value.ToString());
+			_stack.Push(valueExpression.Value.ToString());
 		}
 
 		public override void Visit(ComparisonExpression comparisonExpression)
@@ -59,25 +72,25 @@ namespace MathParser
 					throw new ArgumentException("unhandled comparison expression type");
 			}
 
-			string right = _returnStack.Pop();
-			string left = _returnStack.Pop();
+			string right = _stack.Pop();
+			string left = _stack.Pop();
 
 			string output = String.Format("({0}{1}{2})", left, comparison, right);
-			_returnStack.Push(output);
+			_stack.Push(output);
 		}
 
 		public override void Visit(TernaryExpression ternaryExpression)
 		{
-			string falseCase = _returnStack.Pop();
-			string trueCase = _returnStack.Pop();
-			string condition = _returnStack.Pop();
+			string falseCase = _stack.Pop();
+			string trueCase = _stack.Pop();
+			string condition = _stack.Pop();
 
-			_returnStack.Push("{" + condition + " ? " + trueCase + " : " + falseCase + "}");
+			_stack.Push("{" + condition + " ? " + trueCase + " : " + falseCase + "}");
 		}
 
 		public override void Visit(VariableExpression variableExpression)
 		{
-			_returnStack.Push(variableExpression.VariableName);
+			_stack.Push(variableExpression.Identifier);
 		}
 
 		public override void Visit(PrefixExpression prefixExpression)
@@ -95,9 +108,9 @@ namespace MathParser
 					throw new ArgumentException("unhandled prefix expression type");
 			}
 
-			string right = _returnStack.Pop();
+			string right = _stack.Pop();
 			string output = String.Format("({0}{1})", prefix, right);
-			_returnStack.Push(output);
+			_stack.Push(output);
 		}
 
 		public override void Visit(PostfixExpression postfixExpression)
@@ -109,20 +122,20 @@ namespace MathParser
 					throw new ArgumentException("unhandled postfix expression type");
 			}
 
-			string left = _returnStack.Pop();
+			string left = _stack.Pop();
 			string output = String.Format("({0}{1})", left, postfix);
-			_returnStack.Push(output);
+			_stack.Push(output);
 		}
 
 		public override void Visit(CallExpression functionExpression)
 		{
-			string args = String.Join(",", functionExpression.Arguments.Select(arg => _returnStack.Pop()).Reverse());
-			_returnStack.Push(functionExpression.FunctionName + "(" + args + ")");
+			string args = String.Join(",", functionExpression.Arguments.Select(arg => _stack.Pop()).Reverse());
+			_stack.Push(functionExpression.FunctionName + "(" + args + ")");
 		}
 
-		public string GetResult()
+		public override void Visit(VariableAssignmentExpression variableAssignmentExpression)
 		{
-			return _returnStack.Pop();
+			_stack.Push("(" + variableAssignmentExpression.Identifier + " = " + _stack.Pop() + ")");
 		}
 	}
 }

@@ -2,13 +2,13 @@
 {
 	class VariableAssignmentExpression : IExpression
 	{
+		public Identifier Identifier { get; }
+
 		public IExpression Expression { get; }
 
-		public string VariableName { get; }
-
-		public VariableAssignmentExpression(string variableName, IExpression expression)
+		public VariableAssignmentExpression(Identifier identifier, IExpression expression)
 		{
-			VariableName = variableName;
+			Identifier = identifier;
 			Expression = expression;
 		}
 

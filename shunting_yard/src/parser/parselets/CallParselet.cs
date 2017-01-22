@@ -26,7 +26,7 @@ namespace MathParser
 				tokenStream.Consume(TokenType.RightParenthesis);
 			}
 
-			return new CallExpression(variableExpression.VariableName, arguments);
+			return new CallExpression(variableExpression.Identifier, arguments);
 		}
 
 		public int Precedence

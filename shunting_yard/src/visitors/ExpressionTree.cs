@@ -34,6 +34,12 @@
 			return printVisitor.GetResult();
 		}
 
+		/*public string ToPrettyString()
+		{
+			// TODO decide whether to use new visitor or maybe take input and place white spaces?!
+			return ToDebug();
+		}*/
+
 		public string ToGraphviz()
 		{
 			GraphvizVisitor graphvizVisitor = new GraphvizVisitor();
