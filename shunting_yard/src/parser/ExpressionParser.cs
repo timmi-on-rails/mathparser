@@ -59,11 +59,32 @@ namespace MathParser
 			}
 			IExpression leftExpression = prefixParselet.Parse(ParseExpression, tokenStream, token);
 
-			IInfixParselet infixParselet;
-			while (_infixParselets.TryGetValue(tokenStream.Peek().TokenType, out infixParselet)
-				   	&& (precedence < infixParselet.Precedence))
+			while (true)
 			{
-				tokenStream.Consume();
+				IInfixParselet infixParselet;
+				bool isInfix = _infixParselets.TryGetValue(tokenStream.Peek().TokenType, out infixParselet);
+				if (!isInfix)
+				{
+					if (_prefixParselets.ContainsKey(tokenStream.Peek().TokenType))
+					{
+						infixParselet = _infixParselets[TokenType.Star];
+					}
+					else
+					{
+						break;
+					}
+				}
+
+				if (precedence >= infixParselet.Precedence)
+				{
+					break;
+				}
+
+				if (isInfix)
+				{
+					tokenStream.Consume();
+				}
+
 				leftExpression = infixParselet.Parse(ParseExpression, tokenStream, leftExpression);
 			}
 

@@ -21,11 +21,11 @@
 			return evaluationVisitor.GetResult();
 		}
 
-		/*public void Assign()
+		public void Assign(ISymbolManager symbolManager)
 		{
-			AssignVisitor assignVisitor = new AssignVisitor(_parser.FunctionsManager, _parser.VariablesManager);
+			AssignVisitor assignVisitor = new AssignVisitor(symbolManager);
 			_rootExpression.Accept(assignVisitor);
-		}*/
+		}
 
 		public string ToDebug()
 		{

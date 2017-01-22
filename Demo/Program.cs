@@ -27,6 +27,7 @@ namespace Demo
 					Value result = expressionTree.Evaluate(symbolManager);
 
 					Console.WriteLine("{0} = {1}", detail, result);
+					expressionTree.Assign(symbolManager);
 				}
 				catch (Exception exception)
 				{
