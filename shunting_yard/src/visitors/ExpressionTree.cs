@@ -9,12 +9,12 @@
 			_rootExpression = rootExpression;
 		}
 
-		public object Evaluate()
+		public Value Evaluate()
 		{
 			return Evaluate(null);
 		}
 
-		public object Evaluate(ISymbolManager symbolProvider)
+		public Value Evaluate(ISymbolManager symbolProvider)
 		{
 			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(symbolProvider);
 			_rootExpression.Accept(evaluationVisitor);

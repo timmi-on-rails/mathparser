@@ -31,7 +31,7 @@ namespace MathParser
 			consume(binaryExpression.BinaryExpressionType.ToString(), 2);
 		}
 
-		public override void Visit(NumberExpression valueExpression)
+		public override void Visit(ValueExpression valueExpression)
 		{
 			consume(valueExpression.Value.ToString(), 0);
 		}

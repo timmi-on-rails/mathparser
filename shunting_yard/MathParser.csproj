@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\expressions\BinaryExpression.cs" />
-    <Compile Include="src\expressions\NumberExpression.cs" />
+    <Compile Include="src\expressions\ValueExpression.cs" />
     <Compile Include="src\expressions\IExpression.cs" />
     <Compile Include="src\tokenizer\TokenType.cs" />
     <Compile Include="src\tokenizer\Token.cs" />
@@ -91,6 +91,7 @@
     <Compile Include="src\symbol_manager\SymbolManager.cs" />
     <Compile Include="src\symbol_manager\ISymbolManager.cs" />
     <Compile Include="src\symbol_manager\TrigonometrySymbols.cs" />
+    <Compile Include="src\expressions\Value.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

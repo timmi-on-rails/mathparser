@@ -7,17 +7,17 @@ namespace MathParser
 	class EvaluationVisitor : IExpressionVisitor
 	{
 		readonly ISymbolManager _symbolProvider;
-		protected readonly Stack<object> _evaluationStack;
+		protected readonly Stack<Value> _evaluationStack;
 
 		public Traversal Traversal { get { return Traversal.None; } }
 
 		public EvaluationVisitor(ISymbolManager symbolProvider)
 		{
 			_symbolProvider = symbolProvider;
-			_evaluationStack = new Stack<object>();
+			_evaluationStack = new Stack<Value>();
 		}
 
-		public object GetResult()
+		public Value GetResult()
 		{
 			if (_evaluationStack.Count == 1)
 			{
@@ -35,13 +35,15 @@ namespace MathParser
 			binaryExpression.LeftOperand.Accept(this);
 			binaryExpression.RightOperand.Accept(this);
 
-			object rightOperand = _evaluationStack.Pop();
-			object leftOperand = _evaluationStack.Pop();
+			Value rightOperand = _evaluationStack.Pop();
+			Value leftOperand = _evaluationStack.Pop();
+			bool isNumberLeft = leftOperand.IsFloatingPointNumber || leftOperand.IsInteger;
+			bool isNumberRight = rightOperand.IsFloatingPointNumber || rightOperand.IsInteger;
 
-			if ((leftOperand is double) && (rightOperand is double))
+			if (isNumberLeft && isNumberRight)
 			{
-				double leftValue = (double)leftOperand;
-				double rightValue = (double)rightOperand;
+				double leftValue = leftOperand.ToDouble();
+				double rightValue = rightOperand.ToDouble();
 				double result;
 
 				switch (binaryExpression.BinaryExpressionType)
@@ -66,7 +68,8 @@ namespace MathParser
 						throw new EvaluationException(message);
 				}
 
-				_evaluationStack.Push(result);
+				// TODO integer operations
+				_evaluationStack.Push(Value.FloatingPointNumber(result));
 			}
 			else
 			{
@@ -80,11 +83,11 @@ namespace MathParser
 		{
 			prefixExpression.RightOperand.Accept(this);
 
-			object operand = _evaluationStack.Pop();
+			Value operand = _evaluationStack.Pop();
 
-			if (operand is double)
+			if (operand.IsInteger || operand.IsFloatingPointNumber)
 			{
-				double value = (double)operand;
+				double value = operand.ToDouble();
 				double result;
 
 				switch (prefixExpression.PrefixExpressionType)
@@ -97,7 +100,7 @@ namespace MathParser
 						throw new EvaluationException(message);
 				}
 
-				_evaluationStack.Push(result);
+				_evaluationStack.Push(Value.FloatingPointNumber(result));
 			}
 			else
 			{
@@ -107,7 +110,7 @@ namespace MathParser
 			}
 		}
 
-		public void Visit(NumberExpression numberExpression)
+		public void Visit(ValueExpression numberExpression)
 		{
 			_evaluationStack.Push(numberExpression.Value);
 		}
@@ -123,7 +126,7 @@ namespace MathParser
 
 			if (_symbolProvider.IsSet(functionExpression.FunctionName))
 			{
-				List<object> arguments = new List<object>();
+				List<Value> arguments = new List<Value>();
 
 				for (int i = 0; i < numArguments; i++)
 				{
@@ -131,7 +134,7 @@ namespace MathParser
 				}
 				arguments.Reverse();
 
-				object result = ((Function)_symbolProvider.Get(functionExpression.FunctionName))(arguments.ToArray());
+				Value result = _symbolProvider.Get(functionExpression.FunctionName).ToFunction()(arguments.ToArray());
 				_evaluationStack.Push(result);
 			}
 			else
@@ -144,11 +147,11 @@ namespace MathParser
 		public void Visit(TernaryExpression ternaryExpression)
 		{
 			ternaryExpression.Condition.Accept(this);
-			object conditionOperand = _evaluationStack.Pop();
+			Value conditionOperand = _evaluationStack.Pop();
 
-			if (conditionOperand is bool)
+			if (conditionOperand.IsBoolean)
 			{
-				bool condition = (bool)conditionOperand;
+				bool condition = conditionOperand.ToBoolean();
 
 				if (condition)
 				{
@@ -171,13 +174,15 @@ namespace MathParser
 			comparisonExpression.LeftOperand.Accept(this);
 			comparisonExpression.RightOperand.Accept(this);
 
-			object rightOperand = _evaluationStack.Pop();
-			object leftOperand = _evaluationStack.Pop();
+			Value rightOperand = _evaluationStack.Pop();
+			Value leftOperand = _evaluationStack.Pop();
+			bool isNumberLeft = leftOperand.IsFloatingPointNumber || leftOperand.IsInteger;
+			bool isNumberRight = rightOperand.IsFloatingPointNumber || rightOperand.IsInteger;
 
-			if ((leftOperand is double) && (rightOperand is double))
+			if (isNumberLeft && isNumberRight)
 			{
-				double leftValue = (double)leftOperand;
-				double rightValue = (double)rightOperand;
+				double leftValue = leftOperand.ToDouble();
+				double rightValue = rightOperand.ToDouble();
 				bool result;
 
 				switch (comparisonExpression.ComparisonExpressionType)
@@ -190,7 +195,7 @@ namespace MathParser
 						throw new EvaluationException(message);
 				}
 
-				_evaluationStack.Push(result);
+				_evaluationStack.Push(Value.Boolean(result));
 			}
 			else
 			{

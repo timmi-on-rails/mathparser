@@ -21,13 +21,13 @@ namespace MathParser
 
 		public override void Visit(FunctionAssignmentExpression functionAssignmentExpression)
 		{
-			_symbolManager.SetFunction(functionAssignmentExpression.FunctionName,
+			_symbolManager.Set(functionAssignmentExpression.FunctionName, Value.Function(
 									(args) =>
 			{
 				FunctionExpressionVisitor fExpEvaluationVisitor = new FunctionExpressionVisitor(functionAssignmentExpression.ArgumentNames, args, _symbolManager);
 				functionAssignmentExpression.Expression.Accept(fExpEvaluationVisitor);
 				return fExpEvaluationVisitor.GetResult();
-			});
+			}));
 		}
 	}
 }

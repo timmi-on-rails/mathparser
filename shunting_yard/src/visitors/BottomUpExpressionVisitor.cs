@@ -36,7 +36,7 @@
 		{
 		}
 
-		public virtual void Visit(NumberExpression numberExpression)
+		public virtual void Visit(ValueExpression valueExpression)
 		{
 		}
 

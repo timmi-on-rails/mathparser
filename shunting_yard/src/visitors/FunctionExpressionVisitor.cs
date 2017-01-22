@@ -6,9 +6,9 @@ namespace MathParser
 	class FunctionExpressionVisitor : EvaluationVisitor
 	{
 		IEnumerable<string> argNames;
-		object[] arguments;
+		Value[] arguments;
 
-		public FunctionExpressionVisitor(IEnumerable<string> argNames, object[] arguments, ISymbolManager symbolProvider) : base(symbolProvider)
+		public FunctionExpressionVisitor(IEnumerable<string> argNames, Value[] arguments, ISymbolManager symbolProvider) : base(symbolProvider)
 		{
 			this.argNames = argNames;
 			this.arguments = arguments;

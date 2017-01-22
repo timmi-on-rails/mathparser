@@ -14,7 +14,7 @@ namespace MathParser
 
 		void Visit(GroupExpression groupExpression);
 
-		void Visit(NumberExpression numberExpression);
+		void Visit(ValueExpression numberExpression);
 
 		void Visit(CallExpression functionExpression);
 

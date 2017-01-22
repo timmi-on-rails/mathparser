@@ -15,18 +15,24 @@ namespace MathParser
 		{
 			Function function = (arguments) =>
 			{
-				if (arguments.Length != 1 || !(arguments[0] is double))
+				if (arguments.Length == 1)
 				{
-					string message = String.Format("Function {0} expects exactly one argument of type number. Given {1} arguments.",
-												   symbolName, arguments.Length);
-					throw new EvaluationException(message);
-				}
-				double x = (double)arguments[0];
+					bool isNumber = arguments[0].IsInteger || arguments[0].IsFloatingPointNumber;
 
-				return method(x);
+					if (isNumber)
+					{
+						double x = arguments[0].ToDouble();
+
+						return Value.FloatingPointNumber(method(x));
+					}
+				}
+
+				string message = String.Format("Function {0} expects exactly one argument of type number. Given {1} arguments.",
+											   symbolName, arguments.Length);
+				throw new EvaluationException(message);
 			};
 
-			symbolManager.SetFunction(symbolName, function);
+			symbolManager.Set(symbolName, Value.Function(function));
 		}
 	}
 }

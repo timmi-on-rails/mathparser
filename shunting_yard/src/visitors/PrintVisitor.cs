@@ -39,7 +39,7 @@ namespace MathParser
 			_returnStack.Push(output);
 		}
 
-		public override void Visit(NumberExpression valueExpression)
+		public override void Visit(ValueExpression valueExpression)
 		{
 			_returnStack.Push(valueExpression.Value.ToString());
 		}

@@ -14,7 +14,7 @@ namespace ExpressionTest
 			ExpressionTree tree = parser.Parse("a = 3");
 			//tree.Assign();
 
-			double a = (double)parser.Parse("a=3").Evaluate();
+			double a = parser.Parse("a=3").Evaluate().ToDouble();
 			Assert.AreEqual(3, a);
 		}
 
