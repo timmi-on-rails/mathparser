@@ -57,7 +57,7 @@ namespace MathParser
 		{
 			return new Value(ValueType.Boolean, b);
 		}
-
+		// TODO function with identifier and argument names
 		public static Value Function(Function function)
 		{
 			return new Value(ValueType.Function, function);

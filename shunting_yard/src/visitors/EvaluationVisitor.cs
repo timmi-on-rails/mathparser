@@ -44,35 +44,54 @@ namespace MathParser
 			{
 				double leftValue = leftOperand.ToDouble();
 				double rightValue = rightOperand.ToDouble();
-				double result;
+				Value result;
 
 				switch (binaryExpression.BinaryExpressionType)
 				{
 					case BinaryExpressionType.Addition:
-						result = leftValue + rightValue;
+						result = Value.FloatingPointNumber(leftValue + rightValue);
 						break;
 					case BinaryExpressionType.Substraction:
-						result = leftValue - rightValue;
+						result = Value.FloatingPointNumber(leftValue - rightValue);
 						break;
 					case BinaryExpressionType.Multiplication:
-						result = leftValue * rightValue;
+						result = Value.FloatingPointNumber(leftValue * rightValue);
 						break;
 					case BinaryExpressionType.Division:
-						result = leftValue / rightValue;
+						result = Value.FloatingPointNumber(leftValue / rightValue);
 						break;
 					case BinaryExpressionType.Power:
-						result = Math.Pow(leftValue, rightValue);
+						result = Value.FloatingPointNumber(Math.Pow(leftValue, rightValue));
 						break;
 					case BinaryExpressionType.Modulo:
-						result = leftValue % rightValue;
+						result = Value.FloatingPointNumber(leftValue % rightValue);
 						break;
+					case BinaryExpressionType.Equal:
+						result = Value.Boolean(leftValue == rightValue);
+						break;
+					case BinaryExpressionType.NotEqual:
+						result = Value.Boolean(leftValue != rightValue);
+						break;
+					case BinaryExpressionType.Less:
+						result = Value.Boolean(leftValue < rightValue);
+						break;
+					case BinaryExpressionType.LessOrEqual:
+						result = Value.Boolean(leftValue <= rightValue);
+						break;
+					case BinaryExpressionType.Greater:
+						result = Value.Boolean(leftValue > rightValue);
+						break;
+					case BinaryExpressionType.GreaterOrEqual:
+						result = Value.Boolean(leftValue >= rightValue);
+						break;
+
 					default:
 						string message = String.Format("Unhandled binary operation {0}.", binaryExpression.BinaryExpressionType);
 						throw new EvaluationException(message);
 				}
 
 				// TODO integer operations
-				_evaluationStack.Push(Value.FloatingPointNumber(result));
+				_evaluationStack.Push(result);
 			}
 			else
 			{
@@ -120,6 +139,8 @@ namespace MathParser
 
 		public void Visit(CallExpression functionExpression)
 		{
+			functionExpression.FunctionExpression.Accept(this);
+
 			foreach (IExpression argument in functionExpression.Arguments)
 			{
 				argument.Accept(this);
@@ -127,23 +148,25 @@ namespace MathParser
 
 			int numArguments = functionExpression.Arguments.Count();
 
-			if (_symbolManager.IsSet(functionExpression.FunctionName))
+			List<Value> arguments = new List<Value>();
+
+			for (int i = 0; i < numArguments; i++)
 			{
-				List<Value> arguments = new List<Value>();
+				arguments.Add(_evaluationStack.Pop());
+			}
+			arguments.Reverse();
 
-				for (int i = 0; i < numArguments; i++)
-				{
-					arguments.Add(_evaluationStack.Pop());
-				}
-				arguments.Reverse();
+			Value function = _evaluationStack.Pop();
 
-				Value result = _symbolManager.Get(functionExpression.FunctionName).ToFunction()(arguments.ToArray());
+			if (function.IsFunction)
+			{
+
+				Value result = function.ToFunction()(arguments.ToArray());
 				_evaluationStack.Push(result);
 			}
 			else
 			{
-				throw new EvaluationException("Undefined function " + functionExpression.FunctionName +
-											  " with " + numArguments + " arguments.");
+				throw new EvaluationException("Invalid function call with " + numArguments + " arguments.");
 			}
 		}
 
@@ -172,42 +195,6 @@ namespace MathParser
 			}
 		}
 
-		public void Visit(ComparisonExpression comparisonExpression)
-		{
-			comparisonExpression.LeftOperand.Accept(this);
-			comparisonExpression.RightOperand.Accept(this);
-
-			Value rightOperand = _evaluationStack.Pop();
-			Value leftOperand = _evaluationStack.Pop();
-			bool isNumberLeft = leftOperand.IsFloatingPointNumber || leftOperand.IsInteger;
-			bool isNumberRight = rightOperand.IsFloatingPointNumber || rightOperand.IsInteger;
-
-			if (isNumberLeft && isNumberRight)
-			{
-				double leftValue = leftOperand.ToDouble();
-				double rightValue = rightOperand.ToDouble();
-				bool result;
-
-				switch (comparisonExpression.ComparisonExpressionType)
-				{
-					case ComparisonExpressionType.Less:
-						result = leftValue < rightValue;
-						break;
-					default:
-						string message = String.Format("Unhandled comparison operation {0}.", comparisonExpression.ComparisonExpressionType);
-						throw new EvaluationException(message);
-				}
-
-				_evaluationStack.Push(Value.Boolean(result));
-			}
-			else
-			{
-				string message = String.Format("Incompatible types of operands {0} and {1} for comparsion operation {2}.",
-							   leftOperand, rightOperand, comparisonExpression.ComparisonExpressionType);
-				throw new EvaluationException(message);
-			}
-		}
-
 		public virtual void Visit(VariableExpression variableExpression)
 		{
 			if (_symbolManager.IsSet(variableExpression.Identifier))
@@ -222,7 +209,42 @@ namespace MathParser
 
 		public void Visit(PostfixExpression postfixExpression)
 		{
-			throw new NotImplementedException();
+			postfixExpression.LeftOperand.Accept(this);
+
+			Value operand = _evaluationStack.Pop();
+
+			if (operand.IsInteger)
+			{
+				Value value = operand;
+				Value result;
+
+				switch (postfixExpression.PostfixExpressionType)
+				{
+					case PostfixExpressionType.Factorial:
+						long res = 1;
+						long val = value.ToInt64();
+
+						while (val != 1)
+						{
+							res = res * val;
+							val = val - 1;
+						}
+
+						result = Value.Integer(res);
+						break;
+					default:
+						string message = String.Format("Unhandled postfix operation {0}.", postfixExpression.PostfixExpressionType);
+						throw new EvaluationException(message);
+				}
+
+				_evaluationStack.Push(result);
+			}
+			else
+			{
+				string message = String.Format("Unable to execute postfix operation {0} for operand {1}.",
+											   postfixExpression.PostfixExpressionType, operand);
+				throw new EvaluationException(message);
+			}
 		}
 
 		public void Visit(GroupExpression groupExpression)

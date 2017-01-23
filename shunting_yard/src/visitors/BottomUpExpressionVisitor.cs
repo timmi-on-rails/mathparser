@@ -16,10 +16,6 @@
 		{
 		}
 
-		public virtual void Visit(ComparisonExpression comparisonExpression)
-		{
-		}
-
 		public virtual void Visit(GroupExpression groupExpression)
 		{
 		}

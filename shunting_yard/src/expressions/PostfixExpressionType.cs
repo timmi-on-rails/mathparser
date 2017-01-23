@@ -2,5 +2,6 @@
 {
 	enum PostfixExpressionType
 	{
+		Factorial
 	}
 }

@@ -13,12 +13,7 @@ namespace MathParser
 
 		public override void Visit(CallExpression functionExpression)
 		{
-			consume(functionExpression.FunctionName, functionExpression.Arguments.Count());
-		}
-
-		public override void Visit(ComparisonExpression comparisonExpression)
-		{
-			consume(comparisonExpression.ComparisonExpressionType.ToString(), 2);
+			consume("Function Call", functionExpression.Arguments.Count() + 1);
 		}
 
 		public override void Visit(TernaryExpression ternaryExpression)

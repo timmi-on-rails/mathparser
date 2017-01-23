@@ -2,7 +2,7 @@
 {
 	class TernaryExpression : IExpression
 	{
-		public IExpression Condition { get; } //differ between value expressions and conditionexpressions?! or is condition just some value
+		public IExpression Condition { get; }
 
 		public IExpression TrueCase { get; }
 

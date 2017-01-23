@@ -7,6 +7,12 @@
 		Multiplication,
 		Division,
 		Power,
-		Modulo
+		Modulo,
+		Equal,
+		NotEqual,
+		Less,
+		LessOrEqual,
+		Greater,
+		GreaterOrEqual
 	}
 }

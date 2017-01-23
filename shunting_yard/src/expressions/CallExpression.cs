@@ -5,19 +5,20 @@ namespace MathParser
 {
 	class CallExpression : IExpression
 	{
-		public string FunctionName { get; }
+		public IExpression FunctionExpression { get; }
 
 		public IEnumerable<IExpression> Arguments { get; }
 
-		public CallExpression(string functionName, IEnumerable<IExpression> arguments)
+		public CallExpression(IExpression functionExpression, IEnumerable<IExpression> arguments)
 		{
-			FunctionName = functionName;
+			FunctionExpression = functionExpression;
 			Arguments = arguments.ToArray();
 		}
 
 		public void Accept(IExpressionVisitor visitor)
 		{
-			visitor.Traverse(() => visitor.Visit(this), Arguments.ToArray());
+			IExpression[] children = new[] { FunctionExpression }.Concat(Arguments).ToArray();
+			visitor.Traverse(() => visitor.Visit(this), children);
 		}
 	}
 }

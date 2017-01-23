@@ -44,6 +44,24 @@ namespace MathParser
 				case BinaryExpressionType.Modulo:
 					infix = "%";
 					break;
+				case BinaryExpressionType.Equal:
+					infix = "==";
+					break;
+				case BinaryExpressionType.NotEqual:
+					infix = "!=";
+					break;
+				case BinaryExpressionType.Less:
+					infix = "<";
+					break;
+				case BinaryExpressionType.LessOrEqual:
+					infix = "<=";
+					break;
+				case BinaryExpressionType.Greater:
+					infix = ">";
+					break;
+				case BinaryExpressionType.GreaterOrEqual:
+					infix = ">=";
+					break;
 				default:
 					throw new ArgumentException("unhandled binary expression type");
 			}
@@ -58,28 +76,6 @@ namespace MathParser
 		public override void Visit(ValueExpression valueExpression)
 		{
 			_stack.Push(valueExpression.Value.ToString());
-		}
-
-		public override void Visit(ComparisonExpression comparisonExpression)
-		{
-			string comparison;
-			switch (comparisonExpression.ComparisonExpressionType)
-			{
-				case ComparisonExpressionType.Less:
-					comparison = "<";
-					break;
-				case ComparisonExpressionType.Bigger:
-					comparison = ">";
-					break;
-				default:
-					throw new ArgumentException("unhandled comparison expression type");
-			}
-
-			string right = _stack.Pop();
-			string left = _stack.Pop();
-
-			string output = String.Format("({0}{1}{2})", left, comparison, right);
-			_stack.Push(output);
 		}
 
 		public override void Visit(TernaryExpression ternaryExpression)
@@ -121,6 +117,9 @@ namespace MathParser
 			string postfix;
 			switch (postfixExpression.PostfixExpressionType)
 			{
+				case PostfixExpressionType.Factorial:
+					postfix = "!";
+					break;
 				default:
 					throw new ArgumentException("unhandled postfix expression type");
 			}
@@ -133,7 +132,8 @@ namespace MathParser
 		public override void Visit(CallExpression functionExpression)
 		{
 			string args = String.Join(",", functionExpression.Arguments.Select(arg => _stack.Pop()).Reverse());
-			_stack.Push(functionExpression.FunctionName + "(" + args + ")");
+			string functionName = _stack.Pop();
+			_stack.Push(functionName + "(" + args + ")");
 		}
 
 		public override void Visit(VariableAssignmentExpression variableAssignmentExpression)

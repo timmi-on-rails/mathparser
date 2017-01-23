@@ -56,8 +56,6 @@
     <Compile Include="src\expressions\PostfixExpressionType.cs" />
     <Compile Include="src\parser\Associativity.cs" />
     <Compile Include="src\expressions\TernaryExpression.cs" />
-    <Compile Include="src\expressions\ComparisonExpression.cs" />
-    <Compile Include="src\expressions\ComparisonExpressionType.cs" />
     <Compile Include="src\expressions\FunctionAssignmentExpression.cs" />
     <Compile Include="src\visitors\BottomUpExpressionVisitor.cs" />
     <Compile Include="src\visitors\AssignVisitor.cs" />
@@ -75,7 +73,6 @@
     <Compile Include="src\parser\parselets\PostfixOperatorParselet.cs" />
     <Compile Include="src\parser\parselets\PrefixOperatorParselet.cs" />
     <Compile Include="src\parser\parselets\BinaryOperatorParselet.cs" />
-    <Compile Include="src\parser\parselets\ComparisonParselet.cs" />
     <Compile Include="src\parser\parselets\GroupParselet.cs" />
     <Compile Include="src\parser\parselets\TernaryParselet.cs" />
     <Compile Include="src\parser\parselets\NumberParselet.cs" />

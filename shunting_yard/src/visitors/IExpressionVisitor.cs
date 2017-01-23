@@ -24,8 +24,6 @@ namespace MathParser
 
 		void Visit(TernaryExpression ternaryExpression);
 
-		void Visit(ComparisonExpression comparisonExpression);
-
 		void Visit(FunctionAssignmentExpression functionAssignmentExpression);
 	}
 

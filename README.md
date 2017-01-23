@@ -4,8 +4,7 @@ Demo: https://ci.appveyor.com/api/projects/timmi-on-rails/mathparser/artifacts/D
 
 TODO
 faculty !
-modulo %
+
 vector algebra
-evaluate stuff like "3x+2"
 
 not 100% confident with the Identifier solution

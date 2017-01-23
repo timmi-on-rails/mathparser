@@ -18,9 +18,14 @@ namespace MathParser
 			registerPrefixParselet(TokenType.Minus, new PrefixOperatorParselet(PrefixExpressionType.Negation, Precedences.PREFIX));
 			registerPrefixParselet(TokenType.Plus, new PrefixOperatorParselet(PrefixExpressionType.Positive, Precedences.PREFIX));
 
+			registerInfixParselet(TokenType.Exclamation, new PostfixOperatorParselet(PostfixExpressionType.Factorial, Precedences.POSTFIX));
 			registerInfixParselet(TokenType.Assignment, new AssignParselet());
-			registerInfixParselet(TokenType.Less, new ComparisonParselet(ComparisonExpressionType.Less, Precedences.COMPARISON, Associativity.Left));
-			registerInfixParselet(TokenType.Greater, new ComparisonParselet(ComparisonExpressionType.Bigger, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.Equal, new BinaryOperatorParselet(BinaryExpressionType.Equal, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.NotEqual, new BinaryOperatorParselet(BinaryExpressionType.NotEqual, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.Less, new BinaryOperatorParselet(BinaryExpressionType.Less, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.Greater, new BinaryOperatorParselet(BinaryExpressionType.Greater, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.LessOrEqual, new BinaryOperatorParselet(BinaryExpressionType.LessOrEqual, Precedences.COMPARISON, Associativity.Left));
+			registerInfixParselet(TokenType.GreaterOrEqual, new BinaryOperatorParselet(BinaryExpressionType.GreaterOrEqual, Precedences.COMPARISON, Associativity.Left));
 			registerInfixParselet(TokenType.QuestionMark, new TernaryParselet());
 			registerInfixParselet(TokenType.LeftParenthesis, new CallParselet());
 			registerInfixParselet(TokenType.Plus, new BinaryOperatorParselet(BinaryExpressionType.Addition, Precedences.SUM, Associativity.Left));
@@ -79,7 +84,7 @@ namespace MathParser
 				{
 					break;
 				}
-
+				// todo handle juxtaposition multiplication for constants with brackets
 				if (isInfix)
 				{
 					tokenStream.Consume();

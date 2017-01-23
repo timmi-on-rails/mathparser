@@ -275,7 +275,7 @@ namespace MathParser
 						Consume();
 						return CreateToken(TokenType.NotEqual);
 					}
-					return ScanWord();
+					return CreateToken(TokenType.Exclamation);
 				case '*':
 					Consume();
 					return CreateToken(TokenType.Star);

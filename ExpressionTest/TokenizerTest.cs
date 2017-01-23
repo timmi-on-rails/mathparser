@@ -33,7 +33,7 @@ namespace ExpressionTest
 			AssertTokensMatch("false", Token(TokenType.False, "false", 0), Token(TokenType.EndOfFile, "", 5));
 			AssertTokensMatch("365", Token(TokenType.Numeric, "365", 0), Token(TokenType.EndOfFile, "", 3));
 			AssertTokensMatch("x", Token(TokenType.Identifier, "x", 0), Token(TokenType.EndOfFile, "", 1));
-			AssertTokensMatch("!", Token(TokenType.Unknown, "!", 0), Token(TokenType.EndOfFile, "", 1));
+			AssertTokensMatch("!", Token(TokenType.Exclamation, "!", 0), Token(TokenType.EndOfFile, "", 1));
 			AssertTokensMatch("  ", Token(TokenType.WhiteSpace, "  ", 0), Token(TokenType.EndOfFile, "", 2));
 			AssertTokensMatch("\t ", Token(TokenType.WhiteSpace, "\t ", 0), Token(TokenType.EndOfFile, "", 2));
 		}

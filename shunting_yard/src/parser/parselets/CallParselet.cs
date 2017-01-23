@@ -6,14 +6,6 @@ namespace MathParser
 	{
 		public IExpression Parse(ParseExpressionDelegate parseExpression, TokenStream tokenStream, IExpression leftExpression)
 		{
-			// TODO look up why some people store the left expression instead of verifying a variable name
-			VariableExpression variableExpression = (leftExpression as VariableExpression);
-
-			if (variableExpression == null)
-			{
-				throw new ParserException("Expected identifier as function name.");
-			}
-
 			List<IExpression> arguments = new List<IExpression>();
 
 			if (!tokenStream.Match(TokenType.RightParenthesis))
@@ -26,7 +18,7 @@ namespace MathParser
 				tokenStream.Consume(TokenType.RightParenthesis);
 			}
 
-			return new CallExpression(variableExpression.Identifier, arguments);
+			return new CallExpression(leftExpression, arguments);
 		}
 
 		public int Precedence

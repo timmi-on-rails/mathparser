@@ -26,6 +26,7 @@
 		WhiteSpace,
 		True,
 		False,
-		Percent
+		Percent,
+		Exclamation
 	}
 }
