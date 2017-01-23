@@ -21,7 +21,7 @@ namespace MathParser
 
 		public override void Visit(FunctionAssignmentExpression functionAssignmentExpression)
 		{
-			_symbolManager.Set(functionAssignmentExpression.FunctionName, GetFunction(functionAssignmentExpression, _symbolManager));
+			_symbolManager.Set(functionAssignmentExpression.FunctionIdentifier, GetFunction(functionAssignmentExpression, _symbolManager));
 		}
 
 		public static Value GetFunction(FunctionAssignmentExpression functionAssignmentExpression, ISymbolManager symbolManager)

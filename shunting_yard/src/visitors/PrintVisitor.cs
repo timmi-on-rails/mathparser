@@ -140,5 +140,11 @@ namespace MathParser
 		{
 			_stack.Push("(" + variableAssignmentExpression.Identifier + " = " + _stack.Pop() + ")");
 		}
+
+		public override void Visit(FunctionAssignmentExpression functionAssignmentExpression)
+		{
+			_stack.Push("(" + functionAssignmentExpression.FunctionIdentifier + 
+			            "(" + String.Join(", ", functionAssignmentExpression.ArgumentNames) + ")" + " = " + _stack.Pop() + ")");
+		}
 	}
 }

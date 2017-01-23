@@ -75,7 +75,7 @@
     <Compile Include="src\parser\parselets\BinaryOperatorParselet.cs" />
     <Compile Include="src\parser\parselets\GroupParselet.cs" />
     <Compile Include="src\parser\parselets\TernaryParselet.cs" />
-    <Compile Include="src\parser\parselets\NumberParselet.cs" />
+    <Compile Include="src\parser\parselets\IntegerParselet.cs" />
     <Compile Include="src\parser\parselets\VariableParselet.cs" />
     <Compile Include="src\parser\parselets\CallParselet.cs" />
     <Compile Include="src\parser\exceptions\BadAssignmentException.cs" />
@@ -91,6 +91,7 @@
     <Compile Include="src\expressions\Value.cs" />
     <Compile Include="src\tokenizer\Identifier.cs" />
     <Compile Include="src\parser\parselets\FixValueParselet.cs" />
+    <Compile Include="src\parser\parselets\FloatingPointNumberParselet %28copy%29.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

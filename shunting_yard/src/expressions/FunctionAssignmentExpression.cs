@@ -5,15 +5,15 @@ namespace MathParser
 {
 	class FunctionAssignmentExpression : IExpression
 	{
-		public string FunctionName { get; }
+		public Identifier FunctionIdentifier { get; }
 
 		public IEnumerable<Identifier> ArgumentNames { get; }
 
 		public IExpression Expression { get; }
 
-		public FunctionAssignmentExpression(string functionName, IEnumerable<Identifier> arguments, IExpression expression)
+		public FunctionAssignmentExpression(Identifier functionIdentifier, IEnumerable<Identifier> arguments, IExpression expression)
 		{
-			FunctionName = functionName;
+			FunctionIdentifier = functionIdentifier;
 			Expression = expression;
 			ArgumentNames = arguments.ToArray();
 		}

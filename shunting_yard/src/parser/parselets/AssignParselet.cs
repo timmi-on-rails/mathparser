@@ -18,11 +18,12 @@ namespace MathParser
 			{
 				CallExpression callExpression = (CallExpression)leftExpression;
 
-				IEnumerable<VariableExpression> arguments = callExpression.Arguments.Concat(new[] { callExpression.FunctionExpression }).Select(argument => (argument as VariableExpression));
+				IEnumerable<VariableExpression> arguments = callExpression.Arguments.Select(argument => (argument as VariableExpression));
+				VariableExpression functionExpression = callExpression.FunctionExpression as VariableExpression;
 
-				if (arguments.All(arg => arg != null))
+				if (arguments.All(arg => arg != null) && functionExpression != null)
 				{
-					return new FunctionAssignmentExpression(((VariableExpression)callExpression.FunctionExpression).Identifier, arguments.Select(argument => argument.Identifier), rightExpression);
+					return new FunctionAssignmentExpression(functionExpression.Identifier, arguments.Select(argument => argument.Identifier), rightExpression);
 				}
 				else
 				{

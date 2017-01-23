@@ -139,10 +139,13 @@ namespace MathParser
 				if (IsWhiteSpace())
 				{
 					yield return ScanWhiteSpace();
-				}
-				else if (IsDigit() || Peek() == '.')
+				} 
+				else if (IsDigit())
 				{
-					yield return ScanNumber();
+					yield return ScanInteger();
+				} else if (Peek() == '.')
+				{
+					yield return ScanFloatingPointNumber();
 				}
 				else if (IsLetter() || Peek() == '_')
 				{
@@ -182,7 +185,22 @@ namespace MathParser
 			return CreateToken(TokenType.Identifier);
 		}
 
-		Token ScanNumber()
+		Token ScanInteger()
+		{
+			while (IsDigit())
+			{
+				Consume();
+			}
+
+			if (Peek() == '.' || Peek() == 'e')
+			{
+				return ScanFloatingPointNumber();
+			}
+
+			return CreateToken(TokenType.Integer);
+		}
+
+		Token ScanFloatingPointNumber()
 		{
 			while (IsDigit())
 			{
@@ -222,7 +240,7 @@ namespace MathParser
 				}
 			}
 
-			return CreateToken(TokenType.Numeric);
+			return CreateToken(TokenType.FloatingPointNumber);
 		}
 
 		Token ScanPunctuation()

@@ -31,7 +31,7 @@ namespace ExpressionTest
 			AssertTokensMatch(">=", Token(TokenType.GreaterOrEqual, ">=", 0), Token(TokenType.EndOfFile, "", 2));
 			AssertTokensMatch("true", Token(TokenType.True, "true", 0), Token(TokenType.EndOfFile, "", 4));
 			AssertTokensMatch("false", Token(TokenType.False, "false", 0), Token(TokenType.EndOfFile, "", 5));
-			AssertTokensMatch("365", Token(TokenType.Numeric, "365", 0), Token(TokenType.EndOfFile, "", 3));
+			AssertTokensMatch("365", Token(TokenType.Integer, "365", 0), Token(TokenType.EndOfFile, "", 3));
 			AssertTokensMatch("x", Token(TokenType.Identifier, "x", 0), Token(TokenType.EndOfFile, "", 1));
 			AssertTokensMatch("!", Token(TokenType.Exclamation, "!", 0), Token(TokenType.EndOfFile, "", 1));
 			AssertTokensMatch("  ", Token(TokenType.WhiteSpace, "  ", 0), Token(TokenType.EndOfFile, "", 2));
@@ -41,18 +41,18 @@ namespace ExpressionTest
 		[Test]
 		public void TestNumberToken()
 		{
-			AssertTokensMatch("23123", Token(TokenType.Numeric, "23123", 0), Token(TokenType.EndOfFile, "", 5));
-			AssertTokensMatch(".23", Token(TokenType.Numeric, ".23", 0), Token(TokenType.EndOfFile, "", 3));
-			AssertTokensMatch("13.3", Token(TokenType.Numeric, "13.3", 0), Token(TokenType.EndOfFile, "", 4));
+			AssertTokensMatch("23123", Token(TokenType.Integer, "23123", 0), Token(TokenType.EndOfFile, "", 5));
+			AssertTokensMatch(".23", Token(TokenType.FloatingPointNumber, ".23", 0), Token(TokenType.EndOfFile, "", 3));
+			AssertTokensMatch("13.3", Token(TokenType.FloatingPointNumber, "13.3", 0), Token(TokenType.EndOfFile, "", 4));
 			AssertTokensMatch("27.", Token(TokenType.Unknown, "27.", 0), Token(TokenType.EndOfFile, "", 3));
-			AssertTokensMatch("1e10", Token(TokenType.Numeric, "1e10", 0), Token(TokenType.EndOfFile, "", 4));
+			AssertTokensMatch("1e10", Token(TokenType.FloatingPointNumber, "1e10", 0), Token(TokenType.EndOfFile, "", 4));
 			AssertTokensMatch("1.e10", Token(TokenType.Unknown, "1.e10", 0), Token(TokenType.EndOfFile, "", 5));
-			AssertTokensMatch("1.7e3", Token(TokenType.Numeric, "1.7e3", 0), Token(TokenType.EndOfFile, "", 5));
-			AssertTokensMatch("1.22e+4", Token(TokenType.Numeric, "1.22e+4", 0), Token(TokenType.EndOfFile, "", 7));
-			AssertTokensMatch("1.22e-34", Token(TokenType.Numeric, "1.22e-34", 0), Token(TokenType.EndOfFile, "", 8));
+			AssertTokensMatch("1.7e3", Token(TokenType.FloatingPointNumber, "1.7e3", 0), Token(TokenType.EndOfFile, "", 5));
+			AssertTokensMatch("1.22e+4", Token(TokenType.FloatingPointNumber, "1.22e+4", 0), Token(TokenType.EndOfFile, "", 7));
+			AssertTokensMatch("1.22e-34", Token(TokenType.FloatingPointNumber, "1.22e-34", 0), Token(TokenType.EndOfFile, "", 8));
 			AssertTokensMatch("-3.4",
 				Token(TokenType.Minus, "-", 0),
-				Token(TokenType.Numeric, "3.4", 1),
+				Token(TokenType.FloatingPointNumber, "3.4", 1),
 				Token(TokenType.EndOfFile, "", 4));
 		}
 
@@ -60,7 +60,7 @@ namespace ExpressionTest
 		public void TestIdentifier()
 		{
 			AssertTokensMatch("43xyz",
-				Token(TokenType.Numeric, "43", 0),
+				Token(TokenType.Integer, "43", 0),
 				Token(TokenType.Identifier, "xyz", 2),
 				Token(TokenType.EndOfFile, "", 5));
 		}
@@ -69,16 +69,16 @@ namespace ExpressionTest
 		public void TestSomeOperators()
 		{
 			AssertTokensMatch("1+  y",
-				Token(TokenType.Numeric, "1", 0),
+				Token(TokenType.Integer, "1", 0),
 				Token(TokenType.Plus, "+", 1),
 				Token(TokenType.WhiteSpace, "  ", 2),
 				Token(TokenType.Identifier, "y", 4),
 				Token(TokenType.EndOfFile, "", 5));
 
 			AssertTokensMatch("1<=2",
-				Token(TokenType.Numeric, "1", 0),
+				Token(TokenType.Integer, "1", 0),
 				Token(TokenType.LessOrEqual, "<=", 1),
-				Token(TokenType.Numeric, "2", 3),
+				Token(TokenType.Integer, "2", 3),
 				Token(TokenType.EndOfFile, "", 4));
 		}
 

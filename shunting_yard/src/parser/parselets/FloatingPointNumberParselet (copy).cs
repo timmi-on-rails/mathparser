@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace MathParser
 {
-	class NumberParselet : IPrefixParselet
+	class FloatingPointNumberParselet : IPrefixParselet
 	{
 		public IExpression Parse(ParseExpressionDelegate parseExpression, TokenStream tokenStream, Token token)
 		{
