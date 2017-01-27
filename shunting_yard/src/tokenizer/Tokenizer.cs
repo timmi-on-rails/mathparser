@@ -139,11 +139,12 @@ namespace MathParser
 				if (IsWhiteSpace())
 				{
 					yield return ScanWhiteSpace();
-				} 
+				}
 				else if (IsDigit())
 				{
 					yield return ScanInteger();
-				} else if (Peek() == '.')
+				}
+				else if (Peek() == '.')
 				{
 					yield return ScanFloatingPointNumber();
 				}
@@ -270,6 +271,11 @@ namespace MathParser
 					{
 						Consume();
 						return CreateToken(TokenType.LessOrEqual);
+					}
+					if (Peek() == '>')
+					{
+						Consume();
+						return CreateToken(TokenType.NotEqual);
 					}
 					return CreateToken(TokenType.Less);
 				case '+':

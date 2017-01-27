@@ -14,6 +14,7 @@ namespace ExpressionTest
 			AssertTokensMatch("=", Token(TokenType.Assignment, "=", 0), Token(TokenType.EndOfFile, "", 1));
 			AssertTokensMatch("==", Token(TokenType.Equal, "==", 0), Token(TokenType.EndOfFile, "", 2));
 			AssertTokensMatch("!=", Token(TokenType.NotEqual, "!=", 0), Token(TokenType.EndOfFile, "", 2));
+			AssertTokensMatch("<>", Token(TokenType.NotEqual, "<>", 0), Token(TokenType.EndOfFile, "", 2));
 			AssertTokensMatch("(", Token(TokenType.LeftParenthesis, "(", 0), Token(TokenType.EndOfFile, "", 1));
 			AssertTokensMatch(")", Token(TokenType.RightParenthesis, ")", 0), Token(TokenType.EndOfFile, "", 1));
 			AssertTokensMatch("+", Token(TokenType.Plus, "+", 0), Token(TokenType.EndOfFile, "", 1));
