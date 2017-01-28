@@ -1,6 +1,6 @@
 ﻿namespace MathParser
 {
-	class Token
+	public class Token
 	{
 		public TokenType TokenType { get; }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MathParser
 {
-	class Tokenizer
+	public class Tokenizer
 	{
 		static readonly Dictionary<string, TokenType> _keywords = new Dictionary<string, TokenType>
 		{

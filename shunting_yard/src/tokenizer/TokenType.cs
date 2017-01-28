@@ -1,6 +1,6 @@
 ﻿namespace MathParser
 {
-	enum TokenType
+	public enum TokenType
 	{
 		Assignment,
 		Equal,
