@@ -1,12 +1,12 @@
 ﻿namespace MathParser
 {
-	public class ExpressionTree
+	public class Expression
 	{
-		readonly IExpression _rootExpression;
+		internal IExpression Expr { get; }
 
-		internal ExpressionTree(IExpression rootExpression)
+		internal Expression(IExpression expression)
 		{
-			_rootExpression = rootExpression;
+			Expr = expression;
 		}
 
 		public Value Evaluate()
@@ -14,23 +14,28 @@
 			return Evaluate(null);
 		}
 
-		public Value Evaluate(ISymbolManager symbolProvider)
+		public Value Evaluate(ISymbolManager symbolManager)
 		{
-			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(symbolProvider);
-			_rootExpression.Accept(evaluationVisitor);
+			EvaluationVisitor evaluationVisitor = new EvaluationVisitor(symbolManager);
+			Expr.Accept(evaluationVisitor);
 			return evaluationVisitor.GetResult();
 		}
 
-		public void Assign(ISymbolManager symbolManager)
+		public void ExecuteAssignments(ISymbolManager symbolManager)
 		{
 			AssignVisitor assignVisitor = new AssignVisitor(symbolManager);
-			_rootExpression.Accept(assignVisitor);
+			Expr.Accept(assignVisitor);
+		}
+
+		public override string ToString()
+		{
+			return ToDebug();
 		}
 
 		public string ToDebug()
 		{
 			PrintVisitor printVisitor = new PrintVisitor();
-			_rootExpression.Accept(printVisitor);
+			Expr.Accept(printVisitor);
 			return printVisitor.GetResult();
 		}
 
@@ -43,7 +48,7 @@
 		public string ToGraphviz()
 		{
 			GraphvizVisitor graphvizVisitor = new GraphvizVisitor();
-			_rootExpression.Accept(graphvizVisitor);
+			Expr.Accept(graphvizVisitor);
 			return graphvizVisitor.GetResult();
 		}
 	}

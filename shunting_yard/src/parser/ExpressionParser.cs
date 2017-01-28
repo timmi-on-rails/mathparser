@@ -11,7 +11,7 @@ namespace MathParser
 		static ExpressionParser()
 		{
 			registerPrefixParselet(TokenType.Identifier, new VariableParselet());
-			registerPrefixParselet(TokenType.FloatingPointNumber, new FloatingPointNumberParselet());
+			registerPrefixParselet(TokenType.Decimal, new FloatingPointNumberParselet());
 			registerPrefixParselet(TokenType.Integer, new IntegerParselet());
 			registerPrefixParselet(TokenType.False, new FixValueParselet(Value.Boolean(false)));
 			registerPrefixParselet(TokenType.True, new FixValueParselet(Value.Boolean(true)));

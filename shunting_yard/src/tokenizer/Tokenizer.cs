@@ -241,7 +241,7 @@ namespace MathParser
 				}
 			}
 
-			return CreateToken(TokenType.FloatingPointNumber);
+			return CreateToken(TokenType.Decimal);
 		}
 
 		Token ScanPunctuation()

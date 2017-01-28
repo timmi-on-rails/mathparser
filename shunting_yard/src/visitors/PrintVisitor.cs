@@ -143,8 +143,8 @@ namespace MathParser
 
 		public override void Visit(FunctionAssignmentExpression functionAssignmentExpression)
 		{
-			_stack.Push("(" + functionAssignmentExpression.FunctionIdentifier + 
-			            "(" + String.Join(", ", functionAssignmentExpression.ArgumentNames) + ")" + " = " + _stack.Pop() + ")");
+			_stack.Push("(" + functionAssignmentExpression.FunctionIdentifier +
+						"(" + String.Join(", ", functionAssignmentExpression.ArgumentNames) + ")" + " = " + _stack.Pop() + ")");
 		}
 	}
 }

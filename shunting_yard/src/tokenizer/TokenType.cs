@@ -14,7 +14,7 @@
 		Pow,
 		Identifier,
 		Integer,
-		FloatingPointNumber,
+		Decimal,
 		QuestionMark,
 		Colon,
 		EndOfFile,

@@ -8,7 +8,7 @@ namespace MathParser
 		public IExpression Parse(ParseExpressionDelegate parseExpression, TokenStream tokenStream, Token token)
 		{
 			double result = Double.Parse(token.Content, NumberStyles.Any, CultureInfo.InvariantCulture);
-			return new ValueExpression(Value.FloatingPointNumber(result));
+			return new ValueExpression(Value.Decimal(result));
 		}
 	}
 }

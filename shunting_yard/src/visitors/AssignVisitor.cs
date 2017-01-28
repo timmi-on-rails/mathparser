@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MathParser
+﻿namespace MathParser
 {
 	class AssignVisitor : BottomUpExpressionVisitor
 	{

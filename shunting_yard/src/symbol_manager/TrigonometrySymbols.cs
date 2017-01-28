@@ -17,13 +17,13 @@ namespace MathParser
 			{
 				if (arguments.Length == 1)
 				{
-					bool isNumber = arguments[0].IsInteger || arguments[0].IsFloatingPointNumber;
+					bool isNumber = arguments[0].IsInteger || arguments[0].IsDecimal;
 
 					if (isNumber)
 					{
 						double x = arguments[0].ToDouble();
 
-						return Value.FloatingPointNumber(method(x));
+						return Value.Decimal(method(x));
 					}
 				}
 

@@ -14,6 +14,7 @@ namespace Demo
 
 			SymbolManager symbolManager = new SymbolManager();
 			symbolManager.SetTrigonometrySymbols();
+			symbolManager.SetEvalSymbol();
 
 			Console.WriteLine("Enter {0} to quit calculator.", exitCommand);
 
@@ -21,13 +22,21 @@ namespace Demo
 			{
 				try
 				{
-					ExpressionTree expressionTree = mathParser.Parse(currentLine);
+					Expression expression = mathParser.Parse(currentLine);
 
-					string detail = expressionTree.ToDebug();
-					Value result = expressionTree.Evaluate(symbolManager);
+					string detail = expression.ToDebug();
+					Value result = expression.Evaluate(symbolManager);
 
-					Console.WriteLine("{0} = {1}", detail, result);
-					expressionTree.Assign(symbolManager);
+					if (result.IsExpression)
+					{
+						Console.WriteLine("{0} = `{1}`", detail, result);
+					}
+					else
+					{
+						Console.WriteLine("{0} = {1}", detail, result);
+					}
+
+					expression.ExecuteAssignments(symbolManager);
 				}
 				catch (Exception exception)
 				{

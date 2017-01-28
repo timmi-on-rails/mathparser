@@ -11,7 +11,7 @@ namespace ExpressionTest
 		{
 			Value integer = Value.Integer(16);
 			Assert.IsTrue(integer.IsInteger);
-			Assert.IsFalse(integer.IsFloatingPointNumber);
+			Assert.IsFalse(integer.IsDecimal);
 			Assert.IsFalse(integer.IsBoolean);
 			Assert.IsFalse(integer.IsFunction);
 		}
@@ -19,9 +19,9 @@ namespace ExpressionTest
 		[Test]
 		public void TestFloatingPointNumber()
 		{
-			Value floatingPointNumber = Value.FloatingPointNumber(-2.3);
+			Value floatingPointNumber = Value.Decimal(-2.3);
 			Assert.IsFalse(floatingPointNumber.IsInteger);
-			Assert.IsTrue(floatingPointNumber.IsFloatingPointNumber);
+			Assert.IsTrue(floatingPointNumber.IsDecimal);
 			Assert.IsFalse(floatingPointNumber.IsBoolean);
 			Assert.IsFalse(floatingPointNumber.IsFunction);
 		}
@@ -31,7 +31,7 @@ namespace ExpressionTest
 		{
 			Value boolean = Value.Boolean(true);
 			Assert.IsFalse(boolean.IsInteger);
-			Assert.IsFalse(boolean.IsFloatingPointNumber);
+			Assert.IsFalse(boolean.IsDecimal);
 			Assert.IsTrue(boolean.IsBoolean);
 			Assert.IsFalse(boolean.IsFunction);
 		}
@@ -41,7 +41,7 @@ namespace ExpressionTest
 		{
 			Value function = Value.Function(someCalculationFunction);
 			Assert.IsFalse(function.IsInteger);
-			Assert.IsFalse(function.IsFloatingPointNumber);
+			Assert.IsFalse(function.IsDecimal);
 			Assert.IsFalse(function.IsBoolean);
 			Assert.IsTrue(function.IsFunction);
 		}

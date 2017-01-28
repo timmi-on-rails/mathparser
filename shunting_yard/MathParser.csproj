@@ -47,8 +47,6 @@
     <Compile Include="src\expressions\VariableAssignmentExpression.cs" />
     <Compile Include="src\visitors\IExpressionVisitor.cs" />
     <Compile Include="src\expressions\BinaryExpressionType.cs" />
-    <Compile Include="src\visitors\EvaluationVisitor.cs" />
-    <Compile Include="src\visitors\ExpressionTree.cs" />
     <Compile Include="src\expressions\PrefixExpressionType.cs" />
     <Compile Include="src\expressions\PrefixExpression.cs" />
     <Compile Include="src\expressions\PostfixExpression.cs" />
@@ -88,10 +86,15 @@
     <Compile Include="src\symbol_manager\SymbolManager.cs" />
     <Compile Include="src\symbol_manager\ISymbolManager.cs" />
     <Compile Include="src\symbol_manager\TrigonometrySymbols.cs" />
-    <Compile Include="src\expressions\Value.cs" />
     <Compile Include="src\tokenizer\Identifier.cs" />
     <Compile Include="src\parser\parselets\FixValueParselet.cs" />
     <Compile Include="src\parser\parselets\FloatingPointNumberParselet %28copy%29.cs" />
+    <Compile Include="src\expressions\SymbolicExpression.cs" />
+    <Compile Include="src\symbol_manager\Expression.cs" />
+    <Compile Include="src\evaluation\EvaluationVisitor.cs" />
+    <Compile Include="src\evaluation\Value.cs" />
+    <Compile Include="src\evaluation\Add.cs" />
+    <Compile Include="src\symbol_manager\EvaluateSymbols.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -110,5 +113,6 @@
     <Folder Include="src\parser\exceptions\" />
     <Folder Include="src\parser\parselets\" />
     <Folder Include="src\symbol_manager\" />
+    <Folder Include="src\evaluation\" />
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ namespace MathParser
 {
 	public class MathParser
 	{
-		public ExpressionTree Parse(string expression)
+		public Expression Parse(string expression)
 		{
 			IEnumerable<Token> tokensWithoutWhiteSpaces = Tokenizer.Tokenize(expression)
 																   .Where(token => token.TokenType != TokenType.WhiteSpace);
@@ -17,7 +17,7 @@ namespace MathParser
 
 				tokenStream.Consume(TokenType.EndOfFile);
 
-				return new ExpressionTree(rootExpression);
+				return new Expression(rootExpression);
 			}
 		}
 	}

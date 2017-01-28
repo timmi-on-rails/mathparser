@@ -10,23 +10,27 @@ namespace ExpressionTest
 		[Test]
 		public void TestFuncAssignment1()
 		{
-			MathParser.MathParser parser = new MathParser.MathParser();
-			ExpressionTree tree = parser.Parse("f(x)=3");
-			//tree.Assign();
+			SymbolManager symbolManager = new SymbolManager();
 
-			//double a = parser.Parse("f(2)").Evaluate();
-			//Assert.AreEqual(3, a);
+			MathParser.MathParser parser = new MathParser.MathParser();
+			Expression expression = parser.Parse("f(x)=3");
+			expression.ExecuteAssignments(symbolManager);
+
+			double a = parser.Parse("f(2)").Evaluate(symbolManager).ToDouble();
+			Assert.AreEqual(3, a);
 		}
 
 		[Test]
 		public void TestFuncAssignment2()
 		{
-			MathParser.MathParser parser = new MathParser.MathParser();
-			ExpressionTree tree = parser.Parse("f(x)=x*x");
-			//tree.Assign();
+			SymbolManager symbolManager = new SymbolManager();
 
-			//double a = parser.Parse("f(5)").Evaluate();
-			//Assert.AreEqual(25, a);
+			MathParser.MathParser parser = new MathParser.MathParser();
+			Expression expression = parser.Parse("f(x)=x*x");
+			expression.ExecuteAssignments(symbolManager);
+
+			double a = parser.Parse("f(5)").Evaluate(symbolManager).ToDouble();
+			Assert.AreEqual(25, a);
 		}
 	}
 }

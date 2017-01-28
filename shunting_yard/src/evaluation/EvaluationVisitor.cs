@@ -11,9 +11,9 @@ namespace MathParser
 
 		public Traversal Traversal { get { return Traversal.None; } }
 
-		public EvaluationVisitor(ISymbolManager symbolProvider)
+		public EvaluationVisitor(ISymbolManager symbolManager)
 		{
-			_symbolManager = symbolProvider;
+			_symbolManager = symbolManager;
 			_evaluationStack = new Stack<Value>();
 		}
 
@@ -37,8 +37,16 @@ namespace MathParser
 
 			Value rightOperand = _evaluationStack.Pop();
 			Value leftOperand = _evaluationStack.Pop();
-			bool isNumberLeft = leftOperand.IsFloatingPointNumber || leftOperand.IsInteger;
-			bool isNumberRight = rightOperand.IsFloatingPointNumber || rightOperand.IsInteger;
+			bool isNumberLeft = leftOperand.IsDecimal || leftOperand.IsInteger;
+			bool isNumberRight = rightOperand.IsDecimal || rightOperand.IsInteger;
+
+			switch (binaryExpression.BinaryExpressionType)
+			{
+				case BinaryExpressionType.Addition:
+					Value result = Value.Add(leftOperand, rightOperand);
+					_evaluationStack.Push(result);
+					return;
+			}
 
 			if (isNumberLeft && isNumberRight)
 			{
@@ -48,23 +56,20 @@ namespace MathParser
 
 				switch (binaryExpression.BinaryExpressionType)
 				{
-					case BinaryExpressionType.Addition:
-						result = Value.FloatingPointNumber(leftValue + rightValue);
-						break;
 					case BinaryExpressionType.Substraction:
-						result = Value.FloatingPointNumber(leftValue - rightValue);
+						result = Value.Decimal(leftValue - rightValue);
 						break;
 					case BinaryExpressionType.Multiplication:
-						result = Value.FloatingPointNumber(leftValue * rightValue);
+						result = Value.Decimal(leftValue * rightValue);
 						break;
 					case BinaryExpressionType.Division:
-						result = Value.FloatingPointNumber(leftValue / rightValue);
+						result = Value.Decimal(leftValue / rightValue);
 						break;
 					case BinaryExpressionType.Power:
-						result = Value.FloatingPointNumber(Math.Pow(leftValue, rightValue));
+						result = Value.Decimal(Math.Pow(leftValue, rightValue));
 						break;
 					case BinaryExpressionType.Modulo:
-						result = Value.FloatingPointNumber(leftValue % rightValue);
+						result = Value.Decimal(leftValue % rightValue);
 						break;
 					case BinaryExpressionType.Equal:
 						result = Value.Boolean(leftValue == rightValue);
@@ -107,7 +112,7 @@ namespace MathParser
 
 			Value operand = _evaluationStack.Pop();
 
-			if (operand.IsInteger || operand.IsFloatingPointNumber)
+			if (operand.IsInteger || operand.IsDecimal)
 			{
 				double value = operand.ToDouble();
 				double result;
@@ -122,7 +127,7 @@ namespace MathParser
 						throw new EvaluationException(message);
 				}
 
-				_evaluationStack.Push(Value.FloatingPointNumber(result));
+				_evaluationStack.Push(Value.Decimal(result));
 			}
 			else
 			{
@@ -132,9 +137,16 @@ namespace MathParser
 			}
 		}
 
-		public void Visit(ValueExpression numberExpression)
+		public void Visit(ValueExpression valueExpression)
 		{
-			_evaluationStack.Push(numberExpression.Value);
+			if (valueExpression.Value.IsExpression)
+			{
+				valueExpression.Value.ToExpression().Expr.Accept(this);
+			}
+			else
+			{
+				_evaluationStack.Push(valueExpression.Value);
+			}
 		}
 
 		public void Visit(CallExpression functionExpression)
@@ -197,13 +209,23 @@ namespace MathParser
 
 		public virtual void Visit(VariableExpression variableExpression)
 		{
-			if (_symbolManager.IsSet(variableExpression.Identifier))
+			if (_symbolManager != null && _symbolManager.IsSet(variableExpression.Identifier))
 			{
-				_evaluationStack.Push(_symbolManager.Get(variableExpression.Identifier));
+				// TODO decide whether this is good or not , do we want to evaluate like that?!
+				Value value = _symbolManager.Get(variableExpression.Identifier);
+
+				if (value.IsExpression)
+				{
+					value.ToExpression().Expr.Accept(this);
+				}
+				else
+				{
+					_evaluationStack.Push(value);
+				}
 			}
 			else
 			{
-				throw new EvaluationException("Unknown variable " + variableExpression.Identifier + ".");
+				_evaluationStack.Push(Value.Expression(new Expression(variableExpression)));
 			}
 		}
 

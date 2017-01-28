@@ -14,9 +14,9 @@
 			symbolManager.Set(identifier, Value.Integer(l));
 		}
 
-		public static void SetFloatingPointNumber(this ISymbolManager symbolManager, Identifier identifier, double d)
+		public static void SetDecimal(this ISymbolManager symbolManager, Identifier identifier, double d)
 		{
-			symbolManager.Set(identifier, Value.FloatingPointNumber(d));
+			symbolManager.Set(identifier, Value.Decimal(d));
 		}
 
 		public static void SetBoolean(this ISymbolManager symbolManager, Identifier identifier, bool b)
