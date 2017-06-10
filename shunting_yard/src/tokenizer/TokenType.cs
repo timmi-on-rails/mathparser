@@ -17,6 +17,12 @@
 		Decimal,
 		QuestionMark,
 		Colon,
+		Semicolon,
+		Dot,
+		CurlyLeft,
+		CurlyRight,
+		BracketLeft,
+		BracketRight,
 		EndOfFile,
 		Less,
 		Greater,
@@ -28,6 +34,8 @@
 		True,
 		False,
 		Percent,
-		Exclamation
+		Exclamation,
+		NewLine,
+		String
 	}
 }

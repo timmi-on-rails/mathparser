@@ -8,7 +8,7 @@
 
 		public int Position { get; }
 
-		public Token(TokenType tokenType, string content, int position)
+		public Token (TokenType tokenType, string content, int position)
 		{
 			TokenType = tokenType;
 			Content = content;

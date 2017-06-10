@@ -11,7 +11,11 @@
 
 		public void Accept(IExpressionVisitor visitor)
 		{
-			visitor.Traverse(() => visitor.Visit(this));
+			if (Value.IsExpression)
+
+				visitor.Traverse(() => visitor.Visit(this), Value.ToExpression().Expr);
+			else
+				visitor.Traverse(() => visitor.Visit(this));
 		}
 	}
 }

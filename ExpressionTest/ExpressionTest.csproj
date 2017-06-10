@@ -30,7 +30,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -42,15 +42,16 @@
     <Compile Include="TestParser.cs" />
     <Compile Include="TestValueClass.cs" />
     <Compile Include="TestIdentifier.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="TestCharStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\shunting_yard\MathParser.csproj">
       <Project>{0BFAE215-D589-446E-8FED-89A00EAB498C}</Project>
       <Name>MathParser</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
