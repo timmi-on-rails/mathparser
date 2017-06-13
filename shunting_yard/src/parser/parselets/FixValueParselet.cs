@@ -1,4 +1,6 @@
-﻿namespace MathParser
+﻿using Tokenizer;
+
+namespace MathParser
 {
 	class FixValueParselet : IPrefixParselet
 	{

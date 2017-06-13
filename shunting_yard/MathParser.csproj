@@ -33,6 +33,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="Tokenizer">
+      <HintPath>..\packages\Tokenizer.1.0.6373.39805\lib\net45\Tokenizer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,5 +112,8 @@
     <Folder Include="src\parser\parselets\" />
     <Folder Include="src\symbol_manager\" />
     <Folder Include="src\evaluation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
