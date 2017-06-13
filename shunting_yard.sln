@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTokenizer", "FileTokenizer\FileTokenizer.csproj", "{512EABD8-D492-42CF-96A1-5220310A7DEE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6578803C-9849-4BB2-BEAA-C1D0DB6A7935}.Release|Any CPU.Build.0 = Release|Any CPU
-		{512EABD8-D492-42CF-96A1-5220310A7DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{512EABD8-D492-42CF-96A1-5220310A7DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{512EABD8-D492-42CF-96A1-5220310A7DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{512EABD8-D492-42CF-96A1-5220310A7DEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
